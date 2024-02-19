@@ -28,5 +28,5 @@ Para executar o "Centavo Certo" localmente, siga estas etapas:
 Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
 
 ## Contato
-João Tenório - [/joaopedrortenorio](https://www.linkedin.com/in/joaopedrortenorio) - jp-tenorio@hotmail.com
+João Tenório - [/joaopedrortenorio](https://www.linkedin.com/in/joaopedrortenorio) - jp-tenorio@hotmail.com  
 Romildo Feliciano - [/romildo-feliciano](https://www.linkedin.com/in/romildo-feliciano) - romildofa22@gmail.com
