@@ -1,0 +1,130 @@
+@import 'src/styles.scss';
+
+  .sidenav-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    display: flex;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  
+  .sidenav {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo {
+    height: 18vh;
+    width: 14vw;
+    margin-top: -6vh;
+    margin-left: 2vw;
+  }
+
+  mat-sidenav{
+    background-color: $background-color-header;
+    padding-top: 10vh;
+
+    mat-nav-list{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: auto;
+      align-self: stretch;
+      text-align: center;
+      margin-left: 1.5vw;
+      gap: 6vh;
+
+        a{
+          align-items: center;
+          display: flex;
+          justify-content: start;
+          color: #11389A;
+          font-size: 16px;
+          font-family: 'Lato';
+          font-weight: 600;
+          text-decoration: none;
+          cursor: pointer;
+        }
+    }
+  }
+
+  .mat-sidenav-content {
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .icons{
+    width: 2.5vw;
+    height: 3.8vh;
+    margin-right: 2%;
+  }
+
+  .icons-category{
+    width: 2.5vw;
+    height: 5.8vh;
+    margin-right: 2%;
+  }
+
+  .toolbar-content-logged {
+    width: 100%;
+    max-width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .profile{
+    height: 5vh;
+    width: 5vw;
+    margin-right: -0.5vw;
+  }
+
+  .sidenavbar-config{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: auto;
+    padding: 1vh 1vw 1vh 0vw;
+    align-self: stretch;
+    text-align: center;
+    background: rgba(17, 27, 71, 0.80)
+  }
+
+  .profile, .sign-out {
+    display: block;
+    margin: 10px auto;
+  }
+
+  .toolbar-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    cursor: default;
+  
+    .user-name{
+      color: white;
+      font-size: 20px;
+      font-family: 'Lato';
+      font-weight: 400;
+      cursor: default;
+    }
+  
+    .user-plan {
+      color: white;
+      font-size: 14px;
+      font-family: 'Lato';
+      font-weight: 400;
+      cursor: default;
+    }
+  }
+
+  .sign-out{
+    height: 4vh;
+    width: 2vw;
+    margin-left: 1vw;
+    cursor: pointer;
+  }

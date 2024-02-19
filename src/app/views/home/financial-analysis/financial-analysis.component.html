@@ -1,0 +1,26 @@
+<div class="card" [formGroup]="formGroup">
+  <div class="input-group">
+    <input type="number" formControlName="amount" placeholder="Quantidade (R$)">
+    <select formControlName="type">
+      <option value="expense">Despesa</option>
+      <option value="income">Receita</option>
+    </select>
+
+    <button (click)="saveData()">Salvar</button>
+  </div>
+</div>
+
+<ngx-charts-line-chart
+  [results]="chartData"
+  [view]="[700, 400]"
+  [xAxis]="true"
+  [yAxis]="true"
+  [gradient]="true"
+  [legend]="true"
+  [legendPosition]="legendPos"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  xAxisLabel="Data"
+  yAxisLabel="Valor (R$)"
+  [customColors]="colorScheme">
+</ngx-charts-line-chart>

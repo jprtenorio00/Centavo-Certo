@@ -1,0 +1,61 @@
+<div class="content-register">
+    <div class="img-background"></div>
+    
+    <mat-card class="register-card">
+        <div class="register-section">
+            <h1>Bem-vindo</h1>
+            <p>Registre-se no Centavo Certo</p>
+        </div>
+
+        <mat-card-content>
+            <form class="register" [formGroup]="formGroup">
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Nome</mat-label>
+                    <mat-icon matPrefix>account_circle</mat-icon>
+                    <input matInput type="text" formControlName="name" placeholder="Nome" class="border">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix>email</mat-icon> 
+                    <input matInput type="email" formControlName="email" placeholder="Email" class="border">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Telefone</mat-label>
+                    <mat-icon matPrefix>phone</mat-icon>
+                    <input matInput type="tel" formControlName="phone" placeholder="Telefone" class="border" [appPhoneMask]="'11'">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Selecione um plano:</mat-label>
+                    <mat-icon matPrefix>insert_chart_outlined</mat-icon>
+                    <mat-select formControlName="plan">
+                    <mat-option value="Plano Básico">Plano Básico</mat-option>
+                    <!-- <mat-option value="Plano Premium">Plano Premium</mat-option>
+                    <mat-option value="Plano Elite">Plano Elite</mat-option> -->
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Senha</mat-label>
+                    <mat-icon matPrefix>lock</mat-icon> 
+                    <input matInput [type]="inputType" formControlName="password" placeholder="Senha" class="border">
+
+                    <button *ngIf="password && inputType ==='password'" matSuffix mat-icon-button aria-label="typePassword" (click)="typePassword($event)">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="password && inputType ==='text'" matSuffix mat-icon-button aria-label="typePassword" (click)="typePassword($event)">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <button mat-flat-button type="submit" class="btn-register" (click)="register()">Cadastrar</button>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <span class="register-text">Já possui uma conta? <a href="/login">Entrar</a></span>
+        </mat-card-actions>
+    </mat-card>
+</div>

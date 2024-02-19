@@ -1,0 +1,42 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
+    <img src="/assets/logo-horizontal-centavo-certo.svg" alt="Logo" class="logo">
+    <mat-nav-list>
+      <a (click)="scrollToTop()" mat-list-item routerLink="dashboard" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-dashboard.svg" alt="Ícone Dashboard" class="icons">
+        Dashboard
+      </a>
+      <a (click)="scrollToTop()" mat-list-item routerLink="plans" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-plans.svg" alt="Ícone Plano" class="icons">
+        Planos
+      </a>
+      <a (click)="scrollToTop()" mat-list-item routerLink="categories" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-category.svg" alt="Ícone Cadastro Categorias" class="icons">
+        Cadastro de Categorias
+      </a>
+      <a (click)="scrollToTop()" mat-list-item routerLink="cards" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-card.svg" alt="Ícone Cadastro de Cartões" class="icons">
+        Cadastro de Cartões
+      </a>
+      <a (click)="scrollToTop()" mat-list-item routerLink="holders" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-holders.svg" alt="Ícone Cadastro de Titulares" class="icons">
+        Cadastro de Titulares
+      </a>
+      <a (click)="scrollToTop()" mat-list-item routerLink="manage" routerLinkActive="selected" routerLinkActive="selected">
+        <img src="/assets/icon-manage.svg" alt="Ícone Gerenciar Despesas" class="icons-category">
+        Gerenciar Despesas
+      </a>
+    </mat-nav-list>
+
+    <div class="sidenavbar-config">
+      <img src="/assets/icon-profile.svg" alt="Perfil" class="profile">
+
+      <div class="toolbar-user-info">
+        <span class="user-name">{{userName}}</span>
+        <span class="user-plan">{{userPlan}}</span>
+      </div>
+
+      <img src="/assets/icon-sing-out.svg" alt="Sair" class="sign-out" (click)="onLogout()">
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

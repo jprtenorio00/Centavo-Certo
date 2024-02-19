@@ -1,0 +1,123 @@
+html, body { 
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+// Definindo cores do projeto
+$primary-color: #37447E;
+$secondary-color: #E7ECFF;
+$background-color-header: rgba(225.41, 231.48, 249.69, 0.82);
+$background-color: #ffffff;
+$blue-color-300: #929ECC; 
+$blue-color-400: #6F7CB2; 
+$blue-color-500: #505F98; 
+$blue-color-800: #111B47;
+
+$title-text: #091133;
+$text-color: #505F98; 
+
+$button-primary-bg: #111B47;
+$button-secondary-bg: #091133;
+$sidenavbar-size: 20%;
+
+.no-visibility .content-cards {
+    visibility: hidden;
+}
+
+.no-visibility .content-category {
+    visibility: hidden;
+}
+
+.no-visibility .content-holder {
+    visibility: hidden;
+}
+
+.no-visibility .sidenav-container {
+    visibility: hidden;
+}
+
+
+.footer{
+    text-align: center;
+    background: $background-color-header;
+    padding: 2%;
+    margin-top: 3.5%;
+}
+
+.footer__logo{
+    width: 20vw;
+}
+
+.footer__line{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #CDD1D4;
+    padding-bottom: 2vh;
+}
+
+.footer__text{
+    font-weight: 500;
+    color: #939EA4;
+}
+
+.footer__button{
+    text-decoration: none;
+    padding: 0.5em 3em;
+    color: $secondary-color;
+    background: $blue-color-800;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+}
+
+.footer__links{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 2vh;
+}
+
+
+.footer__link__list {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding-inline-start: 0px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
+    gap: 5.5em;
+}
+
+.list__link a{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    text-decoration: none;
+    color: $blue-color-300;
+}
+
+.list__link a:hover {
+    color: $blue-color-800;
+}
+
+.footer__icon{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    text-decoration: none;
+    color: $blue-color-300;
+    gap: 30px;
+}
+
+.list__icon{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    text-decoration: none;
+    color: $blue-color-300;
+}
+

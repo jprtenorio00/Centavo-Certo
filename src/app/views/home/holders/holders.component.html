@@ -1,0 +1,69 @@
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+
+<div class="content-holder" [formGroup]="formGroup">
+  <mat-card class="holder-card">
+      <div class="holder-explanation">
+        <h1>Cadastro de Titulares</h1>
+        <p>
+            Dê o próximo passo na organização das suas finanças com o cadastro de titulares. Essa funcionalidade permite que você registre todas as pessoas que têm acesso ou responsabilidade sobre suas contas e cartões. Isso ajuda a manter o controle financeiro centralizado e transparente.
+        </p>
+        <strong>Como Funciona?</strong>
+        <p>
+            Aqui você pode adicionar informações sobre cada titular associado às suas contas financeiras. Por exemplo: <br>
+            <strong>Nome Completo:</strong> O nome completo do titular.<br>
+            <strong>Relação:</strong> A relação do titular com você (ex: cônjuge, filho(a), sócio(a), etc.).<br>
+            Estas informações ajudam a identificar quem está envolvido em cada transação e a gerenciar melhor as finanças conjuntas.
+        </p>
+        <strong>Por Que Cadastrar Titulares?</strong>
+        <p>
+            Cadastrar titulares é crucial para manter a organização e a segurança das suas finanças. Isso permite um controle mais eficiente sobre quem tem acesso às suas contas e cartões, além de facilitar a gestão de finanças compartilhadas, seja na família ou em negócios.
+        </p>
+        <p>
+            Comece agora a adicionar os titulares e tenha uma visão mais clara e controlada do fluxo financeiro. Se precisar de ajuda, estamos aqui para apoiar você nessa jornada financeira.
+        </p>
+      </div>
+
+      <div class="align-input-button">
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Nome Completo</mat-label>
+          <input matInput type="text" formControlName="fullName" class="border">
+        </mat-form-field>
+
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Relação</mat-label>
+          <input matInput type="text" formControlName="relation" class="border">
+        </mat-form-field>
+      
+        <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar titular">
+          Enviar
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+
+  </mat-card>
+
+  <mat-card *ngIf="listHolder.length > 0" class="holder-card-sub">
+    <div class="holder-explanation-sub">
+      <h1>Titulares Cadastradas</h1>
+      <table mat-table>
+        <thead>
+          <tr>
+            <th>Nome Completo</th>
+            <th>Relação</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listHolder">
+            <td>{{ item.name }}</td>
+            <td>{{ item.relation }}</td>
+            <td>
+              <mat-icon (click)="openConfirmDialog(item.id)" matTooltip="Deletar titular" aria-label="Deletar titular">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+
+</div>

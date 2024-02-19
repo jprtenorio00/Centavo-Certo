@@ -1,0 +1,51 @@
+@import 'src/styles.scss';
+
+.align-content{
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+}
+
+.start-container {
+  display: flex;
+  padding: 5em 4em;
+  background-color: #f8f9fa;
+
+  .content{
+    padding-left: 2%;
+
+    h1 {
+        font-size: 36px;
+        font-weight: 500;
+    }
+
+    p {
+        color: $text-color;
+        font-size: 16px;
+        line-height: 1.5em;
+        text-align: justify;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 1rem;
+
+      .btn-primary {
+        background-color: $button-primary-bg;
+        color: #fff;
+        border: 0px;
+        border-radius: 6px;
+        padding: 0.5rem 2rem;
+        cursor: pointer;
+      }
+    }
+  }
+
+.content__linkedin{
+  display: flex;
+}
+
+.content__image{
+  width: 96%;
+}
+}

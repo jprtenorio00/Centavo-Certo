@@ -1,0 +1,23 @@
+@import 'src/styles.scss';
+
+.container{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.margin-left{
+    margin-left: $sidenavbar-size;
+    margin-right: 2%;
+}
+
+.container main {
+    flex: 1 1 0;
+    border: 0;
+}
+
+app-sidebar{
+    position: fixed;
+    z-index: 90000;
+}

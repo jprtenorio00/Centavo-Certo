@@ -1,0 +1,47 @@
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+
+<div class="content-category" [formGroup]="formGroup">
+  <mat-card class="category-card">
+      <div class="category-explanation">
+        <h1>Cadastro de Categorias de Despesas</h1>
+        <p>
+            Aqui, você tem o poder de organizar melhor suas finanças pessoais. O cadastro de categorias é uma ferramenta essencial para ajudá-lo a entender melhor como e onde você gasta seu dinheiro. Vamos simplificar seu controle financeiro com categorias personalizadas que refletem seus gastos rotineiros.
+        </p>
+        <strong>Como Funciona?</strong>
+        <p>
+            Você pode criar categorias para cada tipo de despesa que tem regularmente. Por exemplo: <br>
+            <strong>Alimentação:</strong> Inclua aqui gastos com supermercado, restaurantes, lanches etc.<br>
+            <strong>Transporte:</strong> Despesas com transporte público, táxi, aplicativos de carona, etc.<br>
+            <strong>Combustível:</strong> Registre seus gastos com gasolina, diesel, etanol ou eletricidade para veículos.<br>
+            <strong>Casa:</strong> Contas de água, luz, internet, aluguel ou manutenção doméstica.<br>
+            E muitas outras categorias que se ajustam ao seu estilo de vida e padrão de consumo.
+        </p>
+      </div>
+
+      <div class="align-input-button">
+        <mat-form-field class="input-field" appearance="outline">
+            <mat-label>Categorias</mat-label>
+            <input matInput type="text" formControlName="category" class="border">
+        </mat-form-field>
+      
+        <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
+          Enviar
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+
+  </mat-card>
+
+  <mat-card *ngIf="listCategories.length > 0" class="category-card-sub">
+    <div class="category-explanation-sub">
+      <h1>Categorias Cadastradas</h1>
+      <mat-list>
+        <mat-list-item *ngFor="let item of listCategories">
+          {{ item.category }}
+          <mat-icon (click)="openConfirmDialog(item.id)" matTooltip="Deletar categoria" aria-label="Deletar categoria">delete</mat-icon>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card>
+
+</div>

@@ -1,0 +1,141 @@
+@import 'src/styles.scss';
+
+.content-login {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+
+    .img-background{
+        width: 50%;
+        height: 100%;
+        background: url('./../../../../assets/background-login.svg') no-repeat center center;
+        background-size: cover;
+        background-position: center bottom;
+    }
+
+    .login-card {
+        width: 50%;
+        margin-top: -10vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;    
+        gap: 1vh;
+
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 2rem;
+      
+            h1 {
+                color: #37447E;
+                font-size: 74px;
+                font-family: Roboto;
+                font-style: italic;
+                font-weight: 100;
+                line-height: 48px;
+                word-wrap: break-word;
+                margin-bottom: 2vh;
+            }
+      
+            p {
+                color: rgba(0, 0, 0, 0.50);
+                font-size: 16px;
+                font-family: Roboto;
+                font-weight: 500;
+                word-wrap: break-word
+            }
+          }
+
+        .login {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            .input-field {
+                width: 22vw;
+
+                mat-icon {
+                    margin-left: 8px;
+                }
+            }
+
+            mat-form-field{
+                button {
+                    background-color: transparent !important;
+                    border: none !important;
+                    margin-bottom: 0 !important;
+                    margin-right: 0.5vw;
+                }
+            }
+
+            .recovery-password{
+                text-align: end;
+                margin-top: -10px;
+
+                p {
+                    color: rgba(0, 0, 0, 0.50);
+                    font-size: 13px;
+                    font-family: Roboto;
+                    font-weight: 500;
+                    line-height: 18px;
+                    word-wrap: break-word;
+                }
+            }
+
+            .border {
+                width: 100%;
+                margin: 0;
+            }
+
+            button {
+                margin-bottom: 16px;
+            }
+
+            .btn-login {
+                font-feature-settings: 'clig' off, 'liga' off;
+                font-family: Roboto;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 18px;
+                text-align: center;
+              
+                padding: 0.5rem 2rem;
+                background-color: $blue-color-800;
+                color: #fff;
+                border: none;
+                border-radius: 6px;
+                text-transform: capitalize;
+                text-decoration: none;
+                cursor: pointer;
+                box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+            }
+        }
+
+        .signup-text {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+
+            span{
+                color: black;
+                font-size: 14px;
+                font-family: Roboto;
+                font-weight: 500;
+                word-wrap: break-word;
+            }
+
+            a{
+                color: black;
+                font-size: 14px;
+                font-family: Roboto;
+                font-weight: 500;
+                word-wrap: break-word;
+                text-decoration: none;
+                margin-left: 0.2vw;
+            }
+        }
+    }
+}

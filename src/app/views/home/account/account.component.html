@@ -1,0 +1,22 @@
+<div class="account-container">
+  <mat-card class="user-card">
+      <mat-card-header class="align-center">
+          <mat-card-title>Informações do Usuário</mat-card-title>
+      </mat-card-header>
+      
+      <mat-card-content>
+          <p><strong>Nome:</strong> {{ userName }}</p>
+          <p><strong>Email:</strong> {{ userEmail }}</p>
+          <p><strong>Telefone:</strong> {{ userPhone }}</p>
+          <p><strong>Plano Atual:</strong> {{ userPlan }}</p>
+          
+          <div class="change-password">
+              <button mat-raised-button color="primary" (click)="onChangePassword()">Alterar Senha</button>
+          </div>
+      </mat-card-content>
+
+      <mat-card-actions  class="change-password">
+          <button mat-raised-button color="warn" (click)="onLogout()">Logout</button>
+      </mat-card-actions>
+  </mat-card>
+</div>

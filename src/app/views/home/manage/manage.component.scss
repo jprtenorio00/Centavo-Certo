@@ -1,0 +1,187 @@
+@import 'src/styles.scss';
+
+.content-expense {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0 auto;
+
+    .expense-card {
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 80%;
+        margin: auto;
+        padding: 20px;
+        width: auto;
+        min-width: 52.5vw !important;
+        display: flex;
+        flex-direction: column;
+        margin-top: 2vh;
+    }
+
+    .expense-explanation {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+
+    .expense-explanation h1 {
+        color: #2E3A59;
+        text-align: center;
+        margin-bottom: 2%;
+    }
+
+    .expense-card-sub {
+        background-color: #f8f8f8;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 80%;
+        margin: auto;
+        padding: 20px;
+        width: auto;
+        min-width: 60vw !important;
+        display: flex;
+        flex-direction: column;
+        margin-top: 4vh;
+    }
+
+    .expense-explanation-sub {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+
+    .expense-explanation-sub h1 {
+        color: #2E3A59;
+        text-align: center;
+        line-height: 28px;
+        word-wrap: break-word;
+        margin-bottom: 4%;
+    }
+
+    table {
+        width: 100%;
+        justify-content: space-between;
+        flex-grow: 1;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        mat-icon {
+            margin: 1vh;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 0.5vh 1vw;
+        }
+    }
+
+}
+
+.align-input-button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 2vw;
+
+    .input-field{
+        margin-bottom: -1.5%;
+
+        .mat-form-field-wrapper {
+            padding-bottom: 0;
+        }
+    }
+}
+
+.btn-access {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    padding: 0.5rem 2rem;
+    background-color: $blue-color-800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: Roboto;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 500;
+    text-transform: capitalize;
+    cursor: pointer;
+    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+    mat-icon {
+        font-size: 20px;
+    }
+}
+
+.border {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+app-loading-spinner{
+    z-index: 1500;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.input-field {
+  max-width: 95%; /* ou um valor que se adeque melhor ao seu layout */
+  width: 100%; /* para garantir que o campo se ajuste ao contêiner */
+}
+
+.responsive-mat-select {
+  width: 100%; /* Faz o select ocupar 100% da largura do contêiner */
+  max-width: 300px; /* Define uma largura máxima para evitar que fique muito largo em telas grandes */
+  min-width: 150px; /* Define uma largura mínima para garantir legibilidade em telas pequenas */
+  box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura total */
+}
+
+.witdh-10 {
+  width: 10% !important;
+}
+
+.witdh-30 {
+  width: 30% !important;
+}
+
+.witdh-5 {
+  width: 5% !important;
+}
+
+.btn-expense {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  padding: 0.5rem 2rem;
+  background-color: $blue-color-800;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: Roboto;
+  font-size: 15px;
+  line-height: 18px;
+  cursor: pointer;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+
+  padding: 1em 2.2em;
+  text-decoration: none;
+}

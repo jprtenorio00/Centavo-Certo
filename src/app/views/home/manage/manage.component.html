@@ -1,0 +1,83 @@
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+
+<div class="content-expense">
+  <mat-card *ngIf="listExpenses.length > 0" class="expense-card-sub">
+    <div class="expense-explanation-sub">
+      <h1>Despesas Cadastradas</h1>
+      <table mat-table>
+        <thead>
+          <tr>
+            <th class="witdh-10">Data</th>
+            <th class="witdh-30">Titular</th>
+            <th class="witdh-10">Valor</th>
+            <th class="witdh-10">Parcela</th>
+            <th class="witdh-10">Cartão</th>
+            <th class="witdh-10">Descrição</th>
+            <th class="witdh-30">Categoria</th>
+            <th class="witdh-5"></th>
+            <th class="witdh-5"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listExpenses; let i = index">
+            <ng-container *ngIf="!item.editing">
+              <!-- Modo de visualização -->
+              <td>{{ item.date }}</td>
+              <td>{{ item.assignment }}</td>
+              <td>{{ item.value }}</td>
+              <td>{{ item.installment }}</td>
+              <td>{{ item.card }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.category }}</td>
+              <td>
+                <mat-icon (click)="enableEditing(item, true)" matTooltip="Editar despesa" aria-label="Editar despesa">edit</mat-icon>
+              </td>
+              <td>
+                <mat-icon (click)="openConfirmDialog(item.id)" matTooltip="Excluir despesa" aria-label="Excluir despesa">delete</mat-icon>
+              </td>
+            </ng-container>
+
+            <ng-container *ngIf="item.editing">
+              <!-- Modo de edição -->
+              <td class="witdh-10" ><input class="input-field" type="date" [(ngModel)]="item.date"></td>
+              <td class="witdh-30">
+                <mat-select [(ngModel)]="item.assignment">
+                  <mat-option *ngFor="let assignmentItem of listAssignment" [value]="assignmentItem.name">
+                    {{assignmentItem.name}}
+                  </mat-option>
+                </mat-select>
+              </td>
+              <td class="witdh-10"><input class="input-field" type="number" [(ngModel)]="item.value"></td>
+              <td class="witdh-10"><input class="input-field" type="text" [(ngModel)]="item.installment"></td>
+              <td class="witdh-10">
+                <mat-select [(ngModel)]="item.card">
+                  <mat-option *ngFor="let cardItem of listCards" [value]="cardItem.bank + ' (' + cardItem.cardDigits + ')'">
+                    {{cardItem.bank}} ({{cardItem.cardDigits}})
+                  </mat-option>
+                </mat-select>
+              </td>
+              <td><input class="input-field" type="text" [(ngModel)]="item.description"></td>
+              <td class="witdh-30">
+                <mat-select [(ngModel)]="item.category">
+                  <mat-option *ngFor="let categoryItem of listCategory" [value]="categoryItem.category">
+                    {{categoryItem.category}}
+                  </mat-option>
+                </mat-select>
+              </td>
+              <td class="witdh-5">
+                <mat-icon (click)="updateItem(item)" matTooltip="Salvar alteração" aria-label="Salvar alteração">check</mat-icon>
+              </td>
+              <td class="witdh-5">
+                <mat-icon (click)="enableEditing(item, false)" matTooltip="Cancelar alteração" aria-label="Cancelar alteração">close</mat-icon>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+  <div *ngIf="listExpenses.length === 0" class="expense-card-sub expense-explanation-sub">
+    <h1>Nenhuma despesa cadastrada. Por favor, cadastre uma despesa primeiro.</h1>
+    <a class="btn-expense" href="/dashboard">Cadastrar Despesa</a>
+</div>
+</div>

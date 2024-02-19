@@ -1,0 +1,95 @@
+<app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
+
+<div class="content-cards" [formGroup]="formGroup">
+  <mat-card class="cards-card">
+      <div class="cards-explanation">
+        <h1>Cadastro de Cartões</h1>
+        <p>
+            Gerencie seus cartões de crédito e débito com facilidade! O cadastro de cartões em nossa plataforma permite um controle mais eficiente e seguro das suas finanças. Aqui, você pode registrar todos os seus cartões, acompanhando de perto seus gastos.
+        </p>
+        <strong>Como Funciona?</strong>
+        <p>
+            O processo é simples e intuitivo. Você pode adicionar informações sobre cada um de seus cartões, como:
+            <br>
+            <strong>Tipo de Cartão:</strong> Crédito ou débito (crédito e débito).<br>
+            <strong>Banco Emissor:</strong> Nome do banco ou instituição financeira emissora do cartão.<br>
+            <strong>Últimos Quatro Dígitos:</strong> Os últimos quatro dígitos do número do cartão para identificação fácil.<br>
+            <strong>Natureza do Cartão:</strong> Especificar se é um cartão físico ou virtual.<br>
+        </p>
+        <p>
+            Com seus cartões cadastrados, acompanhe suas despesas de forma organizada, identifique padrões de gastos e evite surpresas no fim do mês. 
+        </p>
+        <strong>Por Que Cadastrar seus Cartões?</strong>
+        <p>
+            Cadastrar seus cartões facilita a visualização de gastos, ajuda a evitar taxas por atrasos e superação de limites, e promove um planejamento financeiro mais eficiente. Além disso, ter todos os dados em um único lugar oferece uma visão consolidada do seu perfil de consumo.
+        </p>
+        <p>
+            Pronto para adicionar seus cartões? Siga os passos simples e comece agora mesmo a controlar melhor suas finanças com segurança e praticidade.
+        </p>
+    
+      </div>
+
+      <div class="align-input-button">
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Banco emissor: </mat-label>
+          <input matInput type="text" formControlName="bankIssuer" class="border">
+      </mat-form-field>
+
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Tipo do cartão: </mat-label>
+          <mat-select formControlName="typeCard">
+              <mat-option *ngFor="let type of listTypeCard" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Últimos Quatro Dígitos: </mat-label>
+          <input matInput class="border" formControlName="cardDigits" type="text" maxlength="19"
+                 id="cardDigits" placeholder="xxxx.xxxx.xxxx.0000" 
+                 (input)="formatCardInput($event)">
+        </mat-form-field>
+        
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-label>Natureza do Cartão: </mat-label>
+          <mat-select formControlName="natureCard">
+              <mat-option *ngFor="let nature of listNatureCard" [value]="nature">{{ nature }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+        <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
+          Enviar
+          <mat-icon>send</mat-icon>
+        </button>
+      </div>
+
+  </mat-card>
+
+  <mat-card *ngIf="listCards.length > 0" class="cards-card-sub">
+    <div class="cards-explanation-sub">
+      <h1>Categorias de Cartões</h1>
+      <table mat-table>
+        <thead>
+          <tr>
+            <th>Banco</th>
+            <th>Últimos Dígitos do cartão</th>
+            <th>Natureza</th>
+            <th>Tipo</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of listCards">
+            <td>{{ item.bank }}</td>
+            <td>{{ item.cardDigits }}</td>
+            <td>{{ item.natureCard }}</td>
+            <td>{{ item.typeCard }}</td>
+            <td>
+              <mat-icon (click)="openConfirmDialog(item.id)" matTooltip="Deletar cartão" aria-label="Deletar cartão">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-card>
+
+</div>

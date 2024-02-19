@@ -1,0 +1,5 @@
+<app-header *ngIf="!isLoggedIn"></app-header>
+<app-sidebar *ngIf="isLoggedIn"></app-sidebar>
+<div [ngClass]="{'container margin-left': isLoggedIn, 'container': !isLoggedIn}">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,12 @@
+<div mat-dialog-content class="dialog">
+  <h3 mat-dialog-title>Confirmar Exclusão</h3>
+
+  <mat-dialog-content class="mat-typography">
+    Tem certeza de que deseja excluir esse item? Esta ação não pode ser desfeita e removerá permanentemente o item da sua lista.
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close class="cancel">Cancelar</button>
+    <button mat-raised-button class="delete" [mat-dialog-close]="true">Excluir</button>
+  </mat-dialog-actions>
+</div>

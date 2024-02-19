@@ -1,0 +1,43 @@
+<div class="content-login">
+    <div class="img-background"></div>
+  
+    <mat-card class="login-card">
+        <div class="welcome-section">
+            <h1>Bem-vindo</h1>
+            <p>Logar-se com Email</p>
+        </div>
+
+        <mat-card-content>
+            <form class="login" [formGroup]="formGroup">
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Email</mat-label>
+                    <mat-icon matPrefix>email</mat-icon> 
+                    <input matInput type="email" formControlName="email" placeholder="Email" class="border">
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="input-field">
+                    <mat-label>Senha</mat-label>
+                    <mat-icon matPrefix>lock</mat-icon> 
+                    <input matInput [type]="inputType" formControlName="password" placeholder="Senha" class="border">
+
+                    <button *ngIf="password && inputType ==='password'" matSuffix mat-icon-button aria-label="typePassword" (click)="typePassword($event)">
+                        <mat-icon>visibility_off</mat-icon>
+                    </button>
+                    <button *ngIf="password && inputType ==='text'" matSuffix mat-icon-button aria-label="typePassword" (click)="typePassword($event)">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <div class="recovery-password">
+                    <p>Recuperar senha?</p>
+                </div>
+
+                <button mat-flat-button type="submit" class="btn-login" (click)="login()">Login</button>
+            </form>
+        </mat-card-content>
+
+        <mat-card-actions>
+            <span class="signup-text">Não possui uma conta? <a href="/register"> Registrar-se</a></span>
+        </mat-card-actions>
+    </mat-card>
+</div>
