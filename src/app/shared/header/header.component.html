@@ -1,14 +1,14 @@
-<mat-toolbar *ngIf="!isLoggedIn" class="logged-out">
-  <div class="toolbar-content">
-    
-    <div class="nav-links">
-      <span (click)="scrollToTop()" routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">Início</span>
-      <span (click)="scrollToTop()" routerLink="about-us" routerLinkActive="selected" routerLinkActive="selected">Sobre</span>
-      <span (click)="scrollToTop()" routerLink="plans" routerLinkActive="selected" routerLinkActive="selected">Planos</span>
-    </div>
+<section class="navbar">
+  <a routerLink="/" (click)="scrollToTop()">
+    <img class="logo-header" src="assets/logo-horizontal-centavo-certo.svg" alt="Centavo Certo Logo">
+  </a>
 
-    <img src="assets/logo-horizontal-centavo-certo.svg" alt="Logo" class="logo">
-
-    <span (click)="scrollToTop()" routerLink="login" routerLinkActive="selected" class="btn-access">Acessar Conta</span>
-  </div>
-</mat-toolbar>
+  <nav>
+      <ul>
+          <li><a (click)="scrollToTop()" routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
+          <li><a (click)="scrollToTop()" routerLink="about-us" routerLinkActive="selected">Sobre</a></li>
+          <li><a (click)="scrollToTop()" routerLink="plans" routerLinkActive="selected">Planos</a></li>
+          <li><a (click)="scrollToTop()" routerLink="login" routerLinkActive="selected" class="button-gradiente">Acessar Conta</a></li>
+      </ul>
+  </nav>
+</section>

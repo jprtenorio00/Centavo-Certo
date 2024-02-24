@@ -229,7 +229,7 @@
     bottom: 0vh;
     margin-bottom: 20vh !important;
     background-size: contain !important;
-    background: url('/assets/group-1.svg') no-repeat right center; 
+    background: url('/assets/background-wave.svg') no-repeat right center; 
   }
 
   &:nth-child(2)::after {
@@ -256,4 +256,14 @@
     left: 12vw;
     background: url('/assets/group-5.svg') no-repeat left center; 
   }
+
+  .hero {
+    background: linear-gradient(to right bottom, #007bff, #82b1ff), url('/assets/background-wave.svg');
+    background-repeat: no-repeat;
+    background-position: bottom; /* ou outra posição conforme necessário */
+    background-size: cover; /* ou 'contain' dependendo de como você quer que a imagem se ajuste */
+    /* ... suas outras propriedades ... */
+}
+
+
 }

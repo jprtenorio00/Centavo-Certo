@@ -2,14 +2,18 @@ html, body {
     height: 100%;
     box-sizing: border-box;
     margin: 0;
+    font-family: "Inter", sans-serif;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+    margin: 0; 
+}
 
 // Definindo cores do projeto
-$primary-color: #37447E;
-$secondary-color: #E7ECFF;
+$primary-color: #01B8E3;
+$secondary-color: #3E2DB9;
 $background-color-header: rgba(225.41, 231.48, 249.69, 0.82);
 $background-color: #ffffff;
+$white: #FFFFFF;
 $blue-color-300: #929ECC; 
 $blue-color-400: #6F7CB2; 
 $blue-color-500: #505F98; 
