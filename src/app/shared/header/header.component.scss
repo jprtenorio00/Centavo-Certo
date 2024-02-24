@@ -9,54 +9,32 @@
 }
 
 .logo-header {
-  width: 12vw;
+  width: max(100px, 12vw);
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: transparent;
-  padding: 1vw 3vw;
-
-  background-image: url('/assets/background-wave.svg');
-  background-size: cover; /* Isso garantirá que a imagem cubra toda a barra de navegação */
-  background-repeat: no-repeat; /* Isso impede que a imagem se repita */
+  padding: 2% 4% 0 6%;
 }
 
 .navbar ul {
   list-style-type: none;
   display: flex;
-  gap: 2vw;
+  gap: 20px;
   margin: 0;
   padding: 0;
 }
 
 .navbar li a {
   text-decoration: none;
-  color: $white;
+  color: $secondary-color-font;
   font-weight: 600;
-  font-size: 1vw;
+  font-size: max(14px, 1vw);
 }
 
 .selected {
   font-weight: bold;
   border-bottom: 4px solid $blue-color-500;
-}
-
-.button-gradiente {
-  text-align: center;
-  font-weight: 700 !important;
-
-  border-radius: 0.5vw; 
-  padding: 0.5vw 1.25vw;
-  background-image: linear-gradient(to right, $primary-color, $secondary-color); 
-  
-  cursor: pointer; 
-  box-shadow: 0 4px 8px #00000033; /* sombra leve para profundidade */
-  transition: box-shadow 0.2s; /* transição suave para efeitos de hover */
-}
-
-.button-gradiente:hover {
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
 }

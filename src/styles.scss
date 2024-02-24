@@ -1,19 +1,23 @@
-html, body { 
-    height: 100%;
-    box-sizing: border-box;
+* {
     margin: 0;
+    padding: 0;
     font-family: "Inter", sans-serif;
 }
-body { 
-    margin: 0; 
-}
 
+body {
+    background-image: url('/assets/background-wave.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+  
 // Definindo cores do projeto
-$primary-color: #01B8E3;
-$secondary-color: #3E2DB9;
+$primary-color-font: #150A62;
+$secondary-color-font: #FFFFFF;
+$primary-color-gradient: #01B8E3;
+$secondary-color-gradient: #3E2DB9;
+
 $background-color-header: rgba(225.41, 231.48, 249.69, 0.82);
 $background-color: #ffffff;
-$white: #FFFFFF;
 $blue-color-300: #929ECC; 
 $blue-color-400: #6F7CB2; 
 $blue-color-500: #505F98; 
@@ -70,7 +74,7 @@ $sidenavbar-size: 20%;
 .footer__button{
     text-decoration: none;
     padding: 0.5em 3em;
-    color: $secondary-color;
+    color: #000000;
     background: $blue-color-800;
     font-size: 12px;
     font-weight: 500;
@@ -125,3 +129,19 @@ $sidenavbar-size: 20%;
     color: $blue-color-300;
 }
 
+.button-gradiente {
+    text-align: center;
+    font-weight: 700 !important;
+  
+    border-radius: 0.5vw; 
+    padding: 0.5vw 1.25vw;
+    background-image: linear-gradient(to right, $primary-color-gradient, $secondary-color-gradient); 
+    
+    cursor: pointer; 
+    box-shadow: 0 4px 8px #00000033; /* sombra leve para profundidade */
+    transition: box-shadow 0.2s; /* transição suave para efeitos de hover */
+}
+
+.button-gradiente:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+}
