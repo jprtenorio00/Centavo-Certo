@@ -6,10 +6,32 @@
 
 body {
     background-image: url('/assets/background-wave.svg'); 
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
+    
+    app-login {
+        min-height: 87.4vh;
+        background-size: 100%;
+        background-color: #D0E1FA;
+        background-attachment: fixed;
+        overflow-x: hidden;
+        overflow: hidden !important;
+    }
+    
+    app-header {
+        background-color: #D0E1FA;
+    }
+      
 }
-  
+
+@media (max-height: 19999px) {
+    app-login {
+        min-height: 1000vh;
+        // AJUSTAR DEPOIS PELO MONITORES
+    }
+}
+
+
 // Definindo cores do projeto
 $primary-color-font: #150A62;
 $secondary-color-font: #FFFFFF;
