@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { LoginService } from 'src/app/service/login.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { ViewportScroller } from '@angular/common';
   templateUrl: './start.component.html',
   styleUrls: ['./start.component.scss']
 })
-export class StartComponent implements OnInit {
+export class StartComponent implements OnInit, AfterViewInit{
 
   private subscription: Subscription = new Subscription();
   private fragment: string = '';
@@ -33,11 +33,19 @@ export class StartComponent implements OnInit {
           }
         }, 100); // Ajuste o tempo conforme necessário
       }
-    });
-    
+    });    
     setTimeout(() => {
       this.observableStatusLogin();
     }, 300);
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const element = document.getElementById(this.fragment);
+      if (element) {
+        this.viewportScroller.scrollToAnchor(this.fragment);
+      }
+    }, 0);
   }
 
   observableStatusLogin(){
@@ -70,8 +78,10 @@ export class StartComponent implements OnInit {
 
   @HostListener('window:scroll', ['$event'])
   onWindowScroll() {
+    console.log("Chamous")
     // Verifique se a rolagem até a âncora foi concluída
     const element = document.getElementById(this.fragment);
+    
     if (typeof window !== 'undefined') {
       const yOffset = window.pageYOffset;
       if (element || yOffset >= element!.offsetTop) {

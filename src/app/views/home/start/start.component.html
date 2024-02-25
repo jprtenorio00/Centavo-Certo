@@ -82,7 +82,7 @@
       <div class="plan-buttons">
         <button class="button-gradiente color-alter" *ngIf="isLoggedIn && userPlan !== 'Plano Básico'" >Alterar Plano</button>
         <button class="button-gradiente color-current" *ngIf="isLoggedIn && userPlan === 'Plano Básico'" >Plano Atual</button>
-        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="plans" (click)="scrollToTop()" >Adquira Agora</button>
+        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="#" (click)="scrollToTop()" >Adquira Agora</button>
       </div>
     </div>
 
@@ -98,7 +98,7 @@
       <div class="plan-buttons">
         <button class="button-gradiente color-alter" *ngIf="isLoggedIn && userPlan !== 'Plano Premium'" >Alterar Plano</button>
         <button class="button-gradiente color-current" *ngIf="isLoggedIn && userPlan === 'Plano Premium'" >Plano Atual</button>
-        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="plans" (click)="scrollToTop()" >Adquira Agora</button>
+        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="#" (click)="scrollToTop()" >Adquira Agora</button>
       </div>
     </div>
 
@@ -114,10 +114,10 @@
       <div class="plan-buttons">
         <button class="button-gradiente color-alter" *ngIf="isLoggedIn && userPlan !== 'Plano Elite'" >Alterar Plano</button>
         <button class="button-gradiente color-current" *ngIf="isLoggedIn && userPlan === 'Plano Elite'" >Plano Atual</button>
-        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="plans" (click)="scrollToTop()" >Adquira Agora</button>
+        <button class="button-gradiente color-alter" *ngIf="!isLoggedIn" routerLink="#" (click)="scrollToTop()" >Adquira Agora</button>
       </div>
     </div>
   </div>  
 
-  <p *ngIf="!isLoggedIn" class="plan-footer" routerLink="plans" (click)="scrollToTop()">Aproveite os Benefícios do Plano Básico de Graça por 7 Dias!</p>
+  <p *ngIf="!isLoggedIn" class="plan-footer" (click)="scrollToTop()">Aproveite os Benefícios do Plano Básico de Graça por 7 Dias!</p>
 </section>

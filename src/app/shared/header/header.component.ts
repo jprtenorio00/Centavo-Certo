@@ -1,5 +1,4 @@
-import { ViewportScroller } from '@angular/common';
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
