@@ -8,44 +8,34 @@
 
 .start-container {
   display: flex;
-  padding: 5em 4em;
-  background-color: #f8f9fa;
+  margin: 4% 4% 0% 4%;
 
   .content{
     padding-left: 2%;
 
     h1 {
-        font-size: 36px;
-        font-weight: 500;
+      font-size: min(3.125vw, 60px);
+      color: $primary-color-font;
+      font-weight: 700;
     }
 
     p {
-        color: $text-color;
-        font-size: 16px;
-        line-height: 1.5em;
+        font-size: min(1.146vw, 22px);
+        color: $tertiary-color-font;
+        font-weight: 600;
+        line-height: 1.6;
         text-align: justify;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-
-      .btn-primary {
-        background-color: $button-primary-bg;
-        color: #fff;
-        border: 0px;
-        border-radius: 6px;
-        padding: 0.5rem 2rem;
-        cursor: pointer;
-      }
+        margin-bottom: 1rem;
     }
   }
 
 .content__linkedin{
   display: flex;
+  text-align: center;
+  margin-top: 3rem;
 }
 
 .content__image{
-  width: 96%;
+  width: 85%;
 }
 }
