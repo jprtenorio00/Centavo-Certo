@@ -30,7 +30,6 @@ import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinn
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component';
-import { PlanInformationComponent } from '../shared/plan-information/plan-information.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
@@ -59,7 +58,6 @@ export const routes: Routes = [
       { path: 'register', component: RegisterComponent },
       { path: 'financial-analysis', component: FinancialAnalysisComponent },
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'plans', component: PlansComponent },
       { path: 'account', component: AccountComponent },
       { path: 'categories', component: CategoriesComponent },
       { path: 'cards', component: CardsComponent },
@@ -112,7 +110,6 @@ export const routes: Routes = [
     PhoneMaskDirective,
     LoadingSpinnerComponent,
     ConfirmDialogComponent,
-    PlanInformationComponent,
     ManageComponent
   ],
   providers: [

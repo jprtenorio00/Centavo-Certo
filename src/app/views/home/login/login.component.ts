@@ -5,7 +5,7 @@ import { LoginService } from 'src/app/service/login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   
@@ -64,5 +64,10 @@ export class LoginComponent implements OnInit {
     event.preventDefault();
     this.inputType = this.inputType == 'password' ? 'text' : 'password'
   }
+
+  togglePasswordVisibility(): void {
+    this.inputType = this.inputType === 'password' ? 'text' : 'password';
+}
+
 
 }
