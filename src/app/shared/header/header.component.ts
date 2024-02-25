@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,7 +18,7 @@ export class HeaderComponent implements OnInit {
   userPlan: string = '';
   userData: any;
 
-  constructor(private loginService: LoginService, private authService: AuthService, private router: Router,) { }
+  constructor(private loginService: LoginService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.observableStatusLogin();

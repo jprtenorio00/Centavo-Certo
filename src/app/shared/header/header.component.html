@@ -7,7 +7,8 @@
       <ul>
           <li><a (click)="scrollToTop()" routerLink="/" routerLinkActive="selected" [routerLinkActiveOptions]="{exact: true}">Início</a></li>
           <li><a (click)="scrollToTop()" routerLink="about-us" routerLinkActive="selected">Sobre</a></li>
-          <li><a (click)="scrollToTop()" routerLink="plans" routerLinkActive="selected">Planos</a></li>
+          <li><a routerLink="/" fragment="planos">Planos</a></li>
+
           <li><a (click)="scrollToTop()" routerLink="login" routerLinkActive="selected" class="button-gradiente">Acessar Conta</a></li>
       </ul>
   </nav>
