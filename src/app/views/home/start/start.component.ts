@@ -75,7 +75,6 @@ export class StartComponent implements OnInit {
     if (typeof window !== 'undefined') {
       const yOffset = window.pageYOffset;
       if (element || yOffset >= element!.offsetTop) {
-        console.log('Entrou', element)
         // Atualize a URL sem o fragmento da âncora
         this.router.navigate(['/'], { replaceUrl: true });
       }
