@@ -51,5 +51,13 @@ export class AppModule {
       'my-icon-lock',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-lock.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-phone',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-phone.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-user-box',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-user-box.svg')
+    );
   }
  }
