@@ -19,6 +19,13 @@
   padding: 2% 4% 2% 6%;
 }
 
+.navbar {
+  background-color: transparent;
+  background-image: url('/assets/background-wave.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 .navbar ul {
   list-style-type: none;
   display: flex;
