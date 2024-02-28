@@ -19,11 +19,15 @@
       </div>
 
       <div class="align-input-button">
-        <mat-form-field class="input-field" appearance="outline">
-            <mat-label>Categorias</mat-label>
-            <input matInput type="text" formControlName="category" class="border">
-        </mat-form-field>
-      
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Categorias
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <!-- <mat-label>Categorias</mat-label> -->
+            <input matInput type="text" formControlName="category" class="border" placeholder="Digite aqui">
+          </mat-form-field>
+        </div>
         <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
           Enviar
           <mat-icon>send</mat-icon>

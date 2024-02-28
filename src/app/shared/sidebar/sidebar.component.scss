@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   transition: width 0.3s ease; // Suaviza a transição da largura
-  width: 6rem; // Largura inicial para caber apenas ícones
+  width: 10vh; // Largura inicial para caber apenas ícones
 }
 
 .logo {
@@ -64,7 +64,7 @@ mat-sidenav {
   overflow: hidden;
 }
 
-.icons, .icons-category {
+.icons, .icons-category, .icons-card {
   width: 2.5vw;
   margin-right: 2%;
 }
@@ -75,6 +75,10 @@ mat-sidenav {
 
 .icons {
   height: 3.8vh;
+}
+
+.icons-card {
+  height: 2vh;
 }
 
 .toolbar-content-logged {
@@ -187,11 +191,16 @@ mat-sidenav {
 .sidebar-item:hover .icons,
 .sidebar-item:hover .icon-text {
   filter: brightness(0) invert(1); /* Exemplo: isso tornará a imagem branca no hover */
+  font-weight: bold;
+  font-size: min(1.042vw, 20px); 
 }
 
 .sidebar-item.selected {
   background: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); /* Para hover e rota ativa */
   .icons{
     filter: brightness(0) invert(1); /* Exemplo: isso tornará a imagem branca no hover */
+  }
+  .icon-text{
+    color: $secondary-color-font;
   }
 }

@@ -5,7 +5,7 @@
 }
 
 app-start {
-    background-image: url('/assets/background-wave.svg'); 
+    background-image: url('/assets/background-wave.png'); 
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -135,3 +135,26 @@ mat-icon{
   .btn-access:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
   }
+
+//   .mat-tooltip {
+//     padding: 10px !important; /* Ajuste conforme necessário */
+//   }
+
+  .mdc-tooltip__surface {
+    color: $secondary-color-font !important;
+    background-color: $primary-color-font !important;
+    font-size: 20px!important;
+    padding: 15px !important;
+    // word-break: normal !important;
+  }
+
+//   .cdk-overlay-container .mat-mdc-tooltip {
+//     --mdc-plain-tooltip-container-color: #150A62;
+//     --mdc-plain-tooltip-supporting-text-color: #FFFFFF;
+//     --mdc-plain-tooltip-container-shape: 4px;
+//     --mdc-plain-tooltip-supporting-text-line-height: 16px;
+//     --mdc-plain-tooltip-supporting-text-size: 0.7vw;
+//     --mdc-plain-tooltip-supporting-text-weight: 100%;
+//     --mdc-plain-tooltip-supporting-text-padding: 1vh;
+//     --mdc-tooltip-word-break: normal;
+//   }

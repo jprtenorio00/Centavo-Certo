@@ -1,340 +1,355 @@
 <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
 
 <div class="align-dashboard">
-  <div class="adjusts-filters">
-    <h1 class="dash-titulo">Dashboard de Despesas</h1>
+  <div class="align-itens">
+    <div class="adjusts-filters">
+      <h1 class="dash-titulo">Dashboard de Despesas</h1>
+      <div class="dash-inputs">
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Data
+            <mat-icon matTooltip="Dia, mês e ano em que a compra foi realizada." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+          </mat-form-field>        
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Atribuição
+            <mat-icon matTooltip="Nome da pessoa que efetuou a despesa." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-select formControlName="assignment">
+              <mat-option *ngIf="listAssignment.length == 0" [value]="null" (click)="redirectToHolderPage()" >Cadastrar um titular <mat-icon>add</mat-icon> </mat-option>
+              <mat-option *ngFor="let item of listAssignment" [value]="item.name">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Valor
+            <mat-icon matTooltip="Quantia gasta na transação específica." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <input matInput formControlName="value" placeholder="R$0,00" mask="separator.2" thousandSeparator="." decimalMarker="," prefix="R$ " maxlength="15">
+            <mat-icon matSuffix>money</mat-icon>
+          </mat-form-field>
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Parcela
+            <mat-icon matTooltip="Indicação se a despesa é única, mensal ou parcelada. Exemplo: 01/10." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <input matInput formControlName="installment">
+            <mat-icon matSuffix>credit_card</mat-icon>
+          </mat-form-field>
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Cartão
+            <mat-icon matTooltip="Nome do cartão de crédito/débito usado." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-select formControlName="card">
+              <mat-option *ngIf="listCards.length == 0" [value]="null" (click)="redirectToCardPage()" >Cadastrar um cartão <mat-icon>add</mat-icon></mat-option>
+              <mat-option *ngFor="let item of listCards" [value]="item.bank + ' (' + item.cardDigits + ')'">
+                {{item.bank}} ({{item.cardDigits}})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Descrição
+            <mat-icon matTooltip="Breve explicação do que foi comprado ou do serviço utilizado." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <input matInput formControlName="description">
+            <mat-icon matSuffix>description</mat-icon>
+          </mat-form-field>
+        </div>
+        
+        <div class="align-label-input" [formGroup]="formGroup">
+          <label class="dash-subtitulo">Categoria
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field appearance="outline" class="input-field">
+            <mat-select formControlName="category">
+              <mat-option *ngIf="listCategory.length == 0" [value]="null" (click)="redirectToCategoryPage()" >Cadastrar uma categoria <mat-icon>add</mat-icon> </mat-option>
+              <mat-option *ngFor="let item of listCategory" [value]="item.category">
+                {{item.category}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+
+        <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
+          Enviar
+          <mat-icon class="btn-access-img">send</mat-icon>
+        </button>
+      </div>
+    </div>
+
     <div class="dash-inputs">
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Data</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <input matInput [matDatepicker]="picker" formControlName="date">
-          <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="false"></mat-datepicker-toggle>
-          <mat-datepicker #picker [disabled]="false"></mat-datepicker>
-        </mat-form-field>        
-      </div>
+      <mat-card class="card-background-kpi">
+        <mat-card-header class="card-align">
+          <mat-icon class="card-background-kpi-img">monetization_on</mat-icon>
+          <mat-card-title class="title-card">
+            <p>Despesa total no mês</p>
+          </mat-card-title>
+        </mat-card-header>
 
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Atribuição</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <mat-select formControlName="assignment">
-            <mat-option *ngIf="listAssignment.length == 0" [value]="null" (click)="redirectToHolderPage()" >Cadastrar um titular <mat-icon>add</mat-icon> </mat-option>
-            <mat-option *ngFor="let item of listAssignment" [value]="item.name">
-              {{item.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Valor</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <input matInput formControlName="value" placeholder="R$0,00" mask="separator.2" thousandSeparator="." decimalMarker="," prefix="R$ " maxlength="15">
-          <mat-icon matSuffix>money</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Parcela</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <input matInput formControlName="installment" placeholder="1/12">
-          <mat-icon matSuffix>credit_card</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Cartão</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <mat-select formControlName="card">
-            <mat-option *ngIf="listCards.length == 0" [value]="null" (click)="redirectToCardPage()" >Cadastrar um cartão <mat-icon>add</mat-icon></mat-option>
-            <mat-option *ngFor="let item of listCards" [value]="item.bank + ' (' + item.cardDigits + ')'">
-              {{item.bank}} ({{item.cardDigits}})
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Descrição</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <input matInput formControlName="description" placeholder="Referente ao gasto">
-          <mat-icon matSuffix>description</mat-icon>
-        </mat-form-field>
-      </div>
-      
-      <div class="align-label-input" [formGroup]="formGroup">
-        <label class="dash-subtitulo">Categoria</label>
-        <mat-form-field appearance="outline" class="input-field">
-          <mat-select formControlName="category">
-            <mat-option *ngIf="listCategory.length == 0" [value]="null" (click)="redirectToCategoryPage()" >Cadastrar uma categoria <mat-icon>add</mat-icon> </mat-option>
-            <mat-option *ngFor="let item of listCategory" [value]="item.category">
-              {{item.category}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+        <mat-card-content class="value-card">
+          <p>{{averageSpendingMonth | currency:'BRL'}}</p>
+        </mat-card-content>
+      </mat-card>
 
+      <mat-card class="card-background-kpi">
+        <mat-card-header class="card-align">
+          <mat-icon class="card-background-kpi-img">poll</mat-icon>
+          <mat-card-title class="title-card">
+            <p>Quantidade de despesas no mês</p>
+          </mat-card-title>
+        </mat-card-header>
 
-      <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
-        Enviar
-        <mat-icon class="btn-access-img">send</mat-icon>
-      </button>
+        <mat-card-content class="value-card">
+          <p>{{averageSpendingInMonth}}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="card-background-kpi">
+        <mat-card-header class="card-align">
+          <mat-icon class="card-background-kpi-img">trending_up</mat-icon>
+          <mat-card-title class="title-card">
+            <p>Despesa média na categoria principal</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="value-card">
+          <p>{{averageSpendingInMainCategory | currency:'BRL'}}</p>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card class="card-background-kpi">
+        <mat-card-header class="card-align">
+          <!-- <mat-icon class="card-background-kpi-img" matPrefix svgIcon="my-icon-people"></mat-icon> -->
+          <mat-icon class="card-background-kpi-img">people</mat-icon>
+          <mat-card-title class="title-card">
+            <p>Despesa média por Titular</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content class="value-card">
+          <p>{{averageSpendingByHolder | currency:'BRL'}}</p>
+        </mat-card-content>
+      </mat-card>
+
+    </div>  
+
+    <div class="margin-chart" fxFlex="100%" fxLayout="row wrap" fxLayout.xs="column" fxLayout.md="column" fxLayout.sm="column" fxLayoutGap="2vh">
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Distribuição de Gastos por Categoria</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-bar-vertical
+            [results]="chartDataCategory"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [noBarWhenZero]="false"
+            [barPadding]="30"
+            xAxisLabel="Categorias"
+            yAxisLabel="Valor (R$)"
+            [tooltipTemplate]="tooltipTemplate"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
+                <div>{{model.value | currency:'BRL'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+      
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Percentual de gastos por Categoria</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-pie-chart
+            [results]="chartDataCategoryPercentage"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [doughnut]="false"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <div style="margin-bottom: -3px;">{{'• Categoria: '+ model.name}}</div>
+                <div>{{'• Percentual: ' + (model.value | number:'1.2-2') + '%'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-pie-chart>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Distribuição de Gastos por Cartão de Crédito</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-bar-vertical
+            [results]="chartDataCard"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [barPadding]="30"
+            xAxisLabel="Cartões"
+            yAxisLabel="Valor (R$)"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [tooltipTemplate]="tooltipTemplate"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
+                <div>{{model.value | currency:'BRL'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Percentual de gastos por Cartão de Crédito</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-pie-chart
+            [results]="chartDataCardPercentage"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [doughnut]="false"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <div style="margin-bottom: -3px;">{{'• Cartão: '+ model.name}}</div>
+                <div>{{'• Percentual: ' + (model.value | number:'1.2-2') + '%'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-pie-chart>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Resumo de Gastos Mensais</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-bar-vertical
+            [results]="chartDataDate"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [barPadding]="30"
+            xAxisLabel="Meses"
+            yAxisLabel="Valor (R$)"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [tooltipTemplate]="tooltipTemplate"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
+                <div>{{model.value | currency:'BRL'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+
+      <mat-card fxFlex="48.5%" class="card-background">
+        <mat-card-header>
+          <mat-card-title class="title-card">
+            <p>Distribuição de Gastos por titular</p>
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <ngx-charts-bar-vertical
+            [results]="chartDataHolder"
+            [xAxis]="true"
+            [yAxis]="true"
+            [gradient]="false"
+            [legend]="true"
+            legendTitle="Legenda"
+            [legendPosition]="legendPos"
+            [showXAxisLabel]="true"
+            [showYAxisLabel]="true"
+            [barPadding]="30"
+            xAxisLabel="Titulares"
+            yAxisLabel="Valor (R$)"
+            [yAxisTickFormatting]="yAxisTickFormatting"
+            [tooltipTemplate]="tooltipTemplate"
+            [scheme]="colorScheme">
+
+            <ng-template #tooltipTemplate let-model="model">
+              <div style="padding: 5px; color: #fff;">
+                <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
+                <div>{{model.value | currency:'BRL'}}</div>
+              </div>
+            </ng-template>
+          </ngx-charts-bar-vertical>
+        </mat-card-content>
+      </mat-card>
+
     </div>
   </div>
-
-  <div class="dash-inputs">
-    <mat-card class="card-background-kpi">
-      <mat-card-header class="card-align">
-        <mat-icon class="card-background-kpi-img">monetization_on</mat-icon>
-        <mat-card-title class="title-card">
-          <p>Despesa total no mês</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content class="value-card">
-        <p>{{averageSpendingMonth | currency:'BRL'}}</p>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="card-background-kpi">
-      <mat-card-header class="card-align">
-        <mat-icon class="card-background-kpi-img">poll</mat-icon>
-        <mat-card-title class="title-card">
-          <p>Quantidade de despesas no mês</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content class="value-card">
-        <p>{{averageSpendingInMonth}}</p>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="card-background-kpi">
-      <mat-card-header class="card-align">
-        <mat-icon class="card-background-kpi-img">trending_up</mat-icon>
-        <mat-card-title class="title-card">
-          <p>Despesa média na categoria principal</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content class="value-card">
-        <p>{{averageSpendingInMainCategory | currency:'BRL'}}</p>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="card-background-kpi">
-      <mat-card-header class="card-align">
-        <!-- <mat-icon class="card-background-kpi-img" matPrefix svgIcon="my-icon-people"></mat-icon> -->
-        <mat-icon class="card-background-kpi-img">people</mat-icon>
-        <mat-card-title class="title-card">
-          <p>Despesa média por Titular</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content class="value-card">
-        <p>{{averageSpendingByHolder | currency:'BRL'}}</p>
-      </mat-card-content>
-    </mat-card>
-
-  </div>  
-
-  <div class="margin-chart" fxFlex="100%" fxLayout="row wrap" fxLayout.xs="column" fxLayout.md="column" fxLayout.sm="column" fxLayoutGap="2vh">
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Distribuição de Gastos por Categoria</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-bar-vertical
-          [results]="chartDataCategory"
-          [xAxis]="true"
-          [yAxis]="true"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [noBarWhenZero]="false"
-          [barPadding]="30"
-          xAxisLabel="Categorias"
-          yAxisLabel="Valor (R$)"
-          [tooltipTemplate]="tooltipTemplate"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
-              <div>{{model.value | currency:'BRL'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-bar-vertical>
-      </mat-card-content>
-    </mat-card>
-    
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Percentual de gastos por Categoria</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-pie-chart
-          [results]="chartDataCategoryPercentage"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [doughnut]="false"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <div style="margin-bottom: -3px;">{{'• Categoria: '+ model.name}}</div>
-              <div>{{'• Percentual: ' + (model.value | number:'1.2-2') + '%'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-pie-chart>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Distribuição de Gastos por Cartão de Crédito</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-bar-vertical
-          [results]="chartDataCard"
-          [xAxis]="true"
-          [yAxis]="true"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [barPadding]="30"
-          xAxisLabel="Cartões"
-          yAxisLabel="Valor (R$)"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [tooltipTemplate]="tooltipTemplate"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
-              <div>{{model.value | currency:'BRL'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-bar-vertical>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Percentual de gastos por Cartão de Crédito</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-pie-chart
-          [results]="chartDataCardPercentage"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [doughnut]="false"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <div style="margin-bottom: -3px;">{{'• Cartão: '+ model.name}}</div>
-              <div>{{'• Percentual: ' + (model.value | number:'1.2-2') + '%'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-pie-chart>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Resumo de Gastos Mensais</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-bar-vertical
-          [results]="chartDataDate"
-          [xAxis]="true"
-          [yAxis]="true"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [barPadding]="30"
-          xAxisLabel="Meses"
-          yAxisLabel="Valor (R$)"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [tooltipTemplate]="tooltipTemplate"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
-              <div>{{model.value | currency:'BRL'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-bar-vertical>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card fxFlex="48.5%" class="card-background">
-      <mat-card-header>
-        <mat-card-title class="title-card">
-          <p>Distribuição de Gastos por titular</p>
-        </mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <ngx-charts-bar-vertical
-          [results]="chartDataHolder"
-          [xAxis]="true"
-          [yAxis]="true"
-          [gradient]="false"
-          [legend]="true"
-          legendTitle="Legenda"
-          [legendPosition]="legendPos"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [barPadding]="30"
-          xAxisLabel="Titulares"
-          yAxisLabel="Valor (R$)"
-          [yAxisTickFormatting]="yAxisTickFormatting"
-          [tooltipTemplate]="tooltipTemplate"
-          [scheme]="colorScheme">
-
-          <ng-template #tooltipTemplate let-model="model">
-            <div style="padding: 5px; color: #fff;">
-              <h4 style="margin-bottom: -3px;">{{model.name}}</h4>
-              <div>{{model.value | currency:'BRL'}}</div>
-            </div>
-          </ng-template>
-        </ngx-charts-bar-vertical>
-      </mat-card-content>
-    </mat-card>
-
-  </div>
-
 </div>

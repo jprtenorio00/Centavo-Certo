@@ -7,8 +7,7 @@
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    margin: 0 auto;
-
+    
     .category-card {
         background-color: #f8f8f8;
         border-radius: 5px;
@@ -22,33 +21,32 @@
         flex-direction: column;
         margin-top: 0.5rem;
     }
-
+    
     .category-explanation {
         padding: 20px;
         border-radius: 5px;
         margin-bottom: 1rem;
     }
-
+    
     .category-explanation h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         margin-bottom: 2%;
     }
     
     .category-explanation p {
-        font-size: 14px;
+        margin-bottom: 2vh;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
         text-align: left;
     }
-
+    
     .category-explanation strong {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         word-wrap: break-word;
         text-align: left;
     }
@@ -82,9 +80,8 @@
     }
     
     .category-explanation-sub p {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
@@ -129,4 +126,16 @@
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 4px; 
+}
+
+.align-label-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-subtitulo{
+    font-size: min(0.938vw, 18px);
+    color: $primary-color-font;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
 }

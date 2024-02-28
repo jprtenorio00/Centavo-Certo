@@ -74,6 +74,7 @@
     line-height: 28px;
     word-wrap: break-word;
     text-align: center;
+    margin-bottom: 2vh;
   }
  
   .container__titulo-secundario {
@@ -144,6 +145,7 @@
   
     &-features {
       margin: 0vw 1.5vw;
+      font-size: min(1.042vw, 20px);
     }
   
     &-buttons {
@@ -165,7 +167,6 @@
       font-weight: 300;
       cursor: pointer; 
     }
-  
   }
 
 .container__image-plan{
