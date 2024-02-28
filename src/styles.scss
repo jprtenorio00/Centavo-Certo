@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", sans-serif !important;
 }
 
 app-start {
@@ -87,6 +87,24 @@ $sidenavbar-size: 20%;
 mat-icon{
     font-family: 'Material Icons' !important;
 }
+.button-cancel{
+    background-color: $secondary-color-font !important;
+    color: black;
+    border: 1px;
+    text-align: center;
+    font-weight: 700 !important;
+  
+    border-radius: 0.5vw; 
+    padding: 0.5vw 1.25vw;
+        
+    cursor: pointer; 
+    box-shadow: 0 4px 8px #00000033; /* sombra leve para profundidade */
+    transition: box-shadow 0.2s; /* transição suave para efeitos de hover */
+}
+
+.button-cancel:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+}
 
 .button-gradiente {
     text-align: center;
@@ -119,7 +137,6 @@ mat-icon{
     border: none; /* Sem borda */
     padding: 10px 15px; /* Espaçamento interno */
     border-radius: 7px; /* Bordas arredondadas */
-    font-size: 16px; /* Tamanho do texto */
     cursor: pointer; /* Formato do cursor como ponteiro */
     outline: none; /* Sem contorno ao focar */
     display: flex; /* Display flex para alinhar texto e ícone */

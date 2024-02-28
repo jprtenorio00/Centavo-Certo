@@ -19,7 +19,7 @@
         min-width: 52.5vw !important;
         display: flex; 
         flex-direction: column;
-        margin-top: 0.5rem;
+        margin-top: 2vh;
     }
     
     .category-explanation {
@@ -72,7 +72,7 @@
     }
 
     .category-explanation-sub h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         line-height: 28px;
         word-wrap: break-word;

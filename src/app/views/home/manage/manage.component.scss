@@ -30,7 +30,7 @@
     }
 
     .expense-explanation h1 {
-        color: #2E3A59;
+        color: $primary-color-font;
         text-align: center;
         margin-bottom: 2%;
     }
@@ -56,7 +56,7 @@
     }
 
     .expense-explanation-sub h1 {
-        color: #2E3A59;
+        color: $primary-color-font;
         text-align: center;
         line-height: 28px;
         word-wrap: break-word;
@@ -99,30 +99,6 @@
         .mat-form-field-wrapper {
             padding-bottom: 0;
         }
-    }
-}
-
-.btn-access {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    padding: 0.5rem 2rem;
-    background-color: $blue-color-800;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-family: Roboto;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 500;
-    text-transform: capitalize;
-    cursor: pointer;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-    mat-icon {
-        font-size: 20px;
     }
 }
 
@@ -171,17 +147,24 @@ app-loading-spinner{
   justify-content: center;
   gap: 0.5rem;
 
-  padding: 0.5rem 2rem;
-  background-color: $blue-color-800;
+  font-size: min(1.563vw, 30px);
+  color: $secondary-color-font;
+  font-weight: 500;
+
+  border: none; /* Sem borda */
+  padding: 10px 15px; /* Espaçamento interno */
+  border-radius: 7px; /* Bordas arredondadas */
+
+  background-image: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient);
   color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-family: Roboto;
-  font-size: 15px;
+
   line-height: 18px;
   cursor: pointer;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 
   padding: 1em 2.2em;
   text-decoration: none;
+}
+
+.btn-expense:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
 }

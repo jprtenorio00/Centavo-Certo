@@ -24,15 +24,23 @@
       </div>
 
       <div class="align-input-button">
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Nome Completo</mat-label>
-          <input matInput type="text" formControlName="fullName" class="border">
-        </mat-form-field>
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Nome Completo
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <input matInput type="text" formControlName="fullName" class="border" placeholder="Digite aqui">
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Relação</mat-label>
-          <input matInput type="text" formControlName="relation" class="border">
-        </mat-form-field>
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Relação
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <input matInput type="text" formControlName="relation" class="border" placeholder="Digite aqui">
+          </mat-form-field>
+        </div>
       
         <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar titular">
           Enviar

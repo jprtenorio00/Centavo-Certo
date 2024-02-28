@@ -7,7 +7,6 @@
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    margin: 0 auto;
 
     .cards-card {
         background-color: #f8f8f8;
@@ -30,15 +29,15 @@
     }
 
     .cards-explanation h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         margin-bottom: 2%;
     }
     
     .cards-explanation p {
-        font-size: 14px;
+        margin-bottom: 2vh;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
@@ -46,9 +45,8 @@
     }
 
     .cards-explanation strong {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         word-wrap: break-word;
         text-align: left;
     }
@@ -74,7 +72,7 @@
     }
 
     .cards-explanation-sub h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         line-height: 28px;
         word-wrap: break-word;
@@ -82,9 +80,8 @@
     }
     
     .cards-explanation-sub p {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
@@ -149,4 +146,16 @@ app-loading-spinner{
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.align-label-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-subtitulo{
+    font-size: min(0.938vw, 18px);
+    color: $primary-color-font;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
 }
