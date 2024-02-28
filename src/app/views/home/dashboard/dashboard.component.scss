@@ -63,6 +63,25 @@
   }
 }
 
+.card-background-kpi-destaque{
+  border: none;
+  background-image: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); ;
+  border-radius: 24px !important;
+  box-shadow: 0px 8px 24px rgba(85, 90, 95, 0.2) !important;
+  margin: 2vh 3vh;
+  overflow: hidden;
+  padding: 30px;
+  width: 32vh;
+  height: 10vh;
+  
+  &-img{
+    padding: 0px 24px 24px 0px;
+    font-size: min(1.979vw, 55px);
+    color: $secondary-color-font;
+    margin-right: 2vh;
+  }
+}
+
 .title-card{
   font-size: min(1.042vw, 20px);
   color: #000000;
@@ -70,7 +89,10 @@
   text-align: center;
   padding: 8px 18px 4px 4px;
   flex-grow: 1; /* Faz o título ocupar todo o espaço disponível */
+}
 
+.destaque{
+  color: $secondary-color-font !important;
 }
 
 .value-card{
