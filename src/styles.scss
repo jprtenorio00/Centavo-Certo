@@ -10,6 +10,10 @@ app-start {
     background-repeat: no-repeat;
 }
 
+app-dashboard{
+    background-color: #D0E1FA !important;
+
+}
 body.app-login,
 body.app-register {
     overflow-y: hidden;
@@ -23,7 +27,6 @@ body {
         min-height: 87.4vh;
         background-size: 100%;
         background-image: none !important;
-        background-color: #D0E1FA;
         background-attachment: fixed;
     }
     
