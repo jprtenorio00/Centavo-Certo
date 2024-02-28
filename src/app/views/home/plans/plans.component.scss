@@ -1,3 +1,5 @@
+@import 'src/styles.scss';
+
 .content {
     display: flex;
     flex-direction: column;
@@ -8,7 +10,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: -14em;
+    // margin-top: -14em;
     margin-bottom: 2em; 
   }
   
@@ -73,4 +75,108 @@
     word-wrap: break-word;
     text-align: center;
   }
+ 
+  .container__titulo-secundario {
+    font-size: min(2.344vw, 45px);
+    font-weight: 900;
+    color: $primary-color-font;
+    margin: 2vw 0vw 1vw 0vw;
+  }
   
+  .container__subtitulo-plano{
+    font-size: min(1.042vw, 20px);
+    font-weight: 600;
+    color: $tertiary-color-font;
+    text-align: justify;
+    margin: 0 54vh;
+  } 
+
+  .container-plano {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    // min-height: 100vh;
+    margin: 0 auto;
+  
+    &__plans{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Para responsividade */
+      gap: 4vw;
+      width: 100%;
+      margin-top: 2vw;
+  
+    }
+  }
+  
+  .plan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #d0e1fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0vw 1vw 1vw 1vw;
+    // width: 100%;
+    width: 15vw;
+    height: 25vw;
+    // min-height: 50vh;
+  
+    &-title {
+      color: #091133;
+      margin-bottom: 0vh;
+      letter-spacing: 0.5vw;
+      text-align: center;
+      font-size: min(1.563vw, 30px);
+      margin-left: 1vw;
+    }
+    
+    &-price {
+      font-size: min(1.042vw, 20px);
+      color: #222222;
+      font-weight: 400;
+      word-wrap: break-word;
+      font-weight: bold;
+      margin-bottom: 1vw;
+      padding-right: 7vw;
+    }
+  
+    &-features {
+      margin: 0vw 1.5vw;
+    }
+  
+    &-buttons {
+      margin: 2vw 0vw;
+    }
+  
+    &-color-alter{
+      background-color: #091133;
+    }
+  
+    &-color-current{
+      background-image: linear-gradient(to right, #E3012A, #784C69);
+    }
+  
+    &-footer{
+      margin-top: 3vw;
+      text-decoration: underline;
+      font-size: min(1.406vw, 27px);
+      font-weight: 300;
+      cursor: pointer; 
+    }
+  
+  }
+
+.container__image-plan{
+    width: 85%;
+}
+
+
+.button-gradiente {
+  border: none;
+  text-decoration: none;
+  color: $secondary-color-font;
+  font-weight: 600;
+  font-size: min(1.25vw, 24px); 
+}

@@ -15,6 +15,7 @@ app-dashboard{
 
 }
 body.app-login,
+body.app-plans,
 body.app-register {
     overflow-y: hidden;
 }
@@ -82,13 +83,10 @@ $sidenavbar-size: 20%;
     visibility: hidden;
 }
 
-// .list__icon{
-//     display: flex;
-//     justify-content: center;
-//     list-style-type: none;
-//     text-decoration: none;
-//     color: $blue-color-300;
-// }
+
+mat-icon{
+    font-family: 'Material Icons' !important;
+}
 
 .button-gradiente {
     text-align: center;
@@ -106,3 +104,34 @@ $sidenavbar-size: 20%;
 .button-gradiente:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
 }
+
+
+.btn-access {
+    width: 12vh;
+    height: 5vh;
+    background-image: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); 
+    align-self: center;
+  
+    font-size: min(0.938vw, 18px);
+    color: $secondary-color-font;
+    font-weight: 500;
+    
+    border: none; /* Sem borda */
+    padding: 10px 15px; /* Espaçamento interno */
+    border-radius: 7px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho do texto */
+    cursor: pointer; /* Formato do cursor como ponteiro */
+    outline: none; /* Sem contorno ao focar */
+    display: flex; /* Display flex para alinhar texto e ícone */
+    align-items: center; /* Alinhamento vertical dos itens */
+    justify-content: center; /* Alinhamento horizontal dos itens */
+    gap: 10px; /* Espaço entre o texto e o ícone */
+    
+    &-img{
+      color: $secondary-color-font;
+    }
+  }
+  
+  .btn-access:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+  }

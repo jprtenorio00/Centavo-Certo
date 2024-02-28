@@ -1,9 +1,5 @@
 @import 'src/styles.scss';
 
-body {
-    overflow-y: hidden;
-}
-
 .container {
     display: flex;
     height: 78.2vh;
@@ -53,14 +49,12 @@ body {
     width: 100%;
 }
 
-
 .button-gradiente {
     border: none;
     text-decoration: none;
     color: $secondary-color-font;
     font-weight: 600;
-    font-size: min(1.25vw, 24px);
-    
+    font-size: min(1.25vw, 24px); 
 }
   
 mat-label{
