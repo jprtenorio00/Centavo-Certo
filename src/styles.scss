@@ -10,14 +10,14 @@ app-start {
     background-repeat: no-repeat;
 }
 
-app-dashboard{
-    background-color: #D0E1FA !important;
-
-}
 body.app-login,
 body.app-plans,
 body.app-register {
     overflow-y: hidden;
+}
+
+body.app-dashboard {
+    background-color: #E5E5E5 ;
 }
   
 
@@ -33,10 +33,6 @@ body {
     
 }
 
-// body app-start app-header,
-// body app-about-us app-header {
-//     background-color: transparent !important; /* faz o header ser transparente para mostrar o background do body */
-// }
 
 @media (max-height: 19999px) {
     app-login {

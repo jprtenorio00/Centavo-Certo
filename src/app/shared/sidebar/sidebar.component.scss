@@ -189,6 +189,7 @@ mat-sidenav {
 }
 
 .sidebar-item:hover .icons,
+.sidebar-item:hover .icons-card,
 .sidebar-item:hover .icon-text {
   filter: brightness(0) invert(1); /* Exemplo: isso tornará a imagem branca no hover */
   font-weight: bold;
@@ -197,7 +198,7 @@ mat-sidenav {
 
 .sidebar-item.selected {
   background: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); /* Para hover e rota ativa */
-  .icons{
+  .icons, .icons-card{
     filter: brightness(0) invert(1); /* Exemplo: isso tornará a imagem branca no hover */
   }
   .icon-text{

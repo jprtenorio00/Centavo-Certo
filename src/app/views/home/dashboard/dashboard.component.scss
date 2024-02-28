@@ -1,8 +1,5 @@
 @import 'src/styles.scss';
 
-body{
-  background-color: #000000;
-}
 .align-dashboard{
   display: flex;
   flex-direction: column;
@@ -54,12 +51,15 @@ body{
   box-shadow: 0px 8px 24px rgba(85, 90, 95, 0.2) !important;
   margin: 2vh 3vh;
   overflow: hidden;
-  padding: 33px;
+  padding: 30px;
   width: 32vh;
   height: 10vh;
   
   &-img{
-    padding-right: 6vh;
+    padding: 0px 24px 24px 0px;
+    font-size: min(1.979vw, 55px);
+    color: $primary-color-font;
+    margin-right: 2vh;
   }
 }
 
@@ -68,7 +68,9 @@ body{
   color: #000000;
   font-weight: 500;
   text-align: center;
-  padding-bottom: 2vh;
+  padding: 8px 18px 4px 4px;
+  flex-grow: 1; /* Faz o título ocupar todo o espaço disponível */
+
 }
 
 .value-card{
@@ -80,7 +82,7 @@ body{
 
 .card-align{
   display: flex;
-  justify-content: space-between;
+  align-items: center; /* Adicionado para alinhar verticalmente */
 }
 
 .card-background{
@@ -106,3 +108,6 @@ body{
   margin: 3vh 3vh 0 6vh;
 }
 
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white;
+}

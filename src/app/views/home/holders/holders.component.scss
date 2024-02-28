@@ -155,3 +155,7 @@ app-loading-spinner{
     font-weight: 500;
     margin-bottom: 0.5vh;
 }
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: white;
+}
