@@ -1,12 +1,15 @@
 @import 'src/styles.scss';
 
 .container {
-  height: 70vh;
+  min-height: 100vh;
+  height: auto;
   display: grid;
   grid-template-columns: 50% 50%;
+  flex: 1;
 
   &-secundario{
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     display: grid;
     grid-template-columns: 50% 50%;
     margin: 0 13vw;
@@ -117,8 +120,16 @@
     justify-self: center;
   }
   &-plan{
-    width: 100%;
+    width: 85%;
   }
+}
+
+.img-esquerda{
+  padding-right: 20vh;
+}
+
+.img-direita{
+  padding-left: 20vh;
 }
 
 .container-plano {
@@ -148,9 +159,9 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 0vw 1vw 1vw 1vw;
-  width: 100%;
-  max-width: 300px;
-  min-height: 50vh;
+  // width: 100%;
+  max-width: 31vh;
+  // min-height: 50vh;
 
   &-title {
     color: #091133;
@@ -195,10 +206,4 @@
     cursor: pointer; 
   }
 
-}
-
-@media screen and (max-height: 1080px) {
-  .container {
-      min-height: 600px;
-  }
 }

@@ -3,12 +3,12 @@
 .container{
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    // overflow-x: hidden;
 }
 
 .margin-left{
-    margin-left: $sidenavbar-size;
-    margin-right: 2%;
+    margin-left: 12vh;
+    // margin-right: 2%;
 }
 
 .container main {

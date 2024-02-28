@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/service/login.service';
 
@@ -13,11 +13,16 @@ export class LoginComponent implements OnInit {
   password: string = ''
   inputType: string = 'password'
 
-  constructor(private router: Router, private service: LoginService ) { }
+  constructor(private router: Router, private service: LoginService, private renderer: Renderer2 ) { }
 
   ngOnInit() {
     this.observableEmail();
     this.observablePassword();
+    this.renderer.addClass(document.body, 'app-login');
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'app-login');
   }
 
   observableEmail(){

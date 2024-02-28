@@ -29,13 +29,18 @@
     }
   }
 
-.content__linkedin{
-  display: flex;
-  text-align: center;
-  margin-top: 3rem;
-}
+  .content__linkedin{
+    display: flex;
+    text-align: center;
+    margin-top: 3rem;
+  }
 
-.content__image{
-  width: 85%;
-}
+  .content__image{
+    &-linkedin{
+      width: 95%;
+    }
+    &-ilustracao{
+      width: 60%;
+    }
+  }
 }
