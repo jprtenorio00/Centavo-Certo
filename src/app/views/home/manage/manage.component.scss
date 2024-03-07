@@ -13,7 +13,7 @@
         background-color: #f8f8f8;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 80%;
+        // max-width: 80%;
         margin: auto;
         padding: 20px;
         width: auto;
@@ -39,7 +39,7 @@
         background-color: #f8f8f8;
         border-radius: 5px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 80%;
+        // max-width: 80%;
         margin: auto;
         padding: 20px;
         width: auto;
@@ -167,4 +167,12 @@ app-loading-spinner{
 
 .btn-expense:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+}
+
+.button-gradiente {
+    border: none;
+    text-decoration: none;
+    color: $secondary-color-font;
+    font-weight: 600;
+    font-size: min(1.25vw, 24px); 
 }
