@@ -1,89 +1,110 @@
 @import 'src/styles.scss';
-.title{
-    margin-top: 2%;
-    font-size: 24px;
-    font-family: Roboto Serif;
-    font-weight: 400;
-}
-
-.margin-chart{
-  margin-bottom: 2vh;
-  margin-left: 1.5vh;
-}
 
 .align-dashboard{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .adjusts-filters{
-    padding: 20px;
-    border-bottom: 1px #111B47 solid;
-    align-self: stretch;
-    margin: 2vh auto;
+  // padding: 20px;
+  border-bottom: 1px #111B47 solid;
+  align-self: stretch;
+  // margin: 2vh;
+}
+
+.dash-inputs{
+  display: flex;
+  flex-wrap: wrap; /* Adicionado para responsividade */
+  gap: 10px; /* Espaço entre os campos */
+  justify-content: space-between; /* Espaçamento igual entre os itens */
+}
+
+.dash-titulo{
+  font-size: min(1.979vw, 38px);
+  color: #000000CC;
+  font-weight: 500;
+  margin-bottom: 2vh;
+}
+
+.dash-subtitulo{
+  font-size: min(0.938vw, 18px);
+  color: $primary-color-font;
+  font-weight: 500;
+  margin-bottom: 0.5vh;
+}
+
+.align-label-input{
+  display: flex;
+  flex-direction: column;
 }
 
 .input-field {
-    .mat-form-field-wrapper {
-      padding-bottom: 0.25em; 
-    }
+  width: 23vh; /* Ajustado para ocupar o espaço disponível */
+  margin-bottom: 10px; /* Espaço abaixo de cada campo */
+}
+
+.card-background-kpi{
+  border: none;
+  background-color: #ffffff;
+  border-radius: 24px !important;
+  box-shadow: 0px 8px 24px rgba(85, 90, 95, 0.2) !important;
+  margin: 2vh 3vh;
+  overflow: hidden;
+  padding: 30px;
+  width: 32vh;
+  height: 10vh;
   
-    .mat-form-field-flex {
-      background-color: #fff;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.1); 
-  
-      .mat-form-field-infix {
-        border-top: none; 
-      }
-    }
-  
-    .mat-form-field-label {
-      color: #111B47; 
-    }
-  
-    .mat-input-element {
-      color: #111B47; 
-    }
+  &-img{
+    padding: 0px 24px 24px 0px;
+    font-size: min(1.979vw, 55px);
+    color: $primary-color-font;
+    margin-right: 2vh;
   }
+}
+
+.card-background-kpi-destaque{
+  border: none;
+  background-image: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); ;
+  border-radius: 24px !important;
+  box-shadow: 0px 8px 24px rgba(85, 90, 95, 0.2) !important;
+  margin: 2vh 3vh;
+  overflow: hidden;
+  padding: 30px;
+  width: 32vh;
+  height: 10vh;
   
-  .btn-submit {
-    background-color: #091133; 
-    color: #fff; 
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 2vh;
-    align-self: flex-end; 
+  &-img{
+    padding: 0px 24px 24px 0px;
+    font-size: min(1.979vw, 55px);
+    color: $secondary-color-font;
+    margin-right: 2vh;
   }
+}
 
-  .btn-access {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    margin-left: auto;
-    margin-right: 1vw;
-    margin-bottom: 2vh;
+.title-card{
+  font-size: min(1.042vw, 20px);
+  color: #000000;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px 18px 4px 4px;
+  flex-grow: 1; /* Faz o título ocupar todo o espaço disponível */
+}
 
-    padding: 0.5rem 2rem;
-    background-color: $blue-color-800;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-family: Roboto;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 500;
-    text-transform: capitalize;
-    cursor: pointer;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+.destaque{
+  color: $secondary-color-font !important;
+}
 
-    mat-icon {
-        font-size: 20px;
-    }
+.value-card{
+  font-size: min(2.083vw, 40px);
+  color: #000000;
+  font-weight: 500;
+  text-align: center;
+}
+
+.card-align{
+  display: flex;
+  align-items: center; /* Adicionado para alinhar verticalmente */
 }
 
 .card-background{
@@ -97,31 +118,18 @@
   padding-bottom: 9vh;
 }
 
-.card-background-kpi{
-  border: none;
-  background-color: #ffffff;
-  border-radius: 8px !important;
-  box-shadow: 0px 8px 24px rgba(85, 90, 95, 0.2) !important;
-  margin: 2vh 0;
-  overflow: hidden;
-  padding: 33px;
-  min-width: 14.5vw;
-  height: 6vh;
+.margin-chart {
+  margin-bottom: 2vh;
+  place-content: center;
 }
 
-.title-card{
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 30px;
-  color: #000000;
-  border-bottom: 1px solid #c4c4c4;
+.align-itens{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 3vh 3vh 0 6vh;
 }
 
-:host ::ng-deep{
-  text.ng-star-inserted{
-    text-anchor: middle;
-    transform: rotate(0);
-  }
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white;
 }

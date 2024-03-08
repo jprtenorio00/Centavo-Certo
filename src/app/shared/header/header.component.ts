@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
@@ -7,7 +7,7 @@ import { LoginService } from 'src/app/service/login.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
 
@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   userPlan: string = '';
   userData: any;
 
-  constructor(private loginService: LoginService, private authService: AuthService, private router: Router,) { }
+  constructor(private loginService: LoginService, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.observableStatusLogin();

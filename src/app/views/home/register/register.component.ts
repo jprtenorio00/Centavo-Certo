@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/service/login.service';
 import { RegisterService } from 'src/app/service/register.service';
@@ -14,11 +14,16 @@ export class RegisterComponent implements OnInit {
   password: string = ''
   inputType: string = 'password'
 
-  constructor(private router: Router, private service: RegisterService, private loginService: LoginService) { }
+  constructor(private router: Router, private service: RegisterService, private loginService: LoginService,  private renderer: Renderer2) { }
 
   ngOnInit() {
     this.observableEmail();
     this.observablePassword();
+    this.renderer.addClass(document.body, 'app-register');
+  }
+
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'app-register');
   }
 
   observableEmail(){

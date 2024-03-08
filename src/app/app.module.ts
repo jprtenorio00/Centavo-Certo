@@ -1,6 +1,6 @@
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +12,9 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [				
@@ -32,6 +33,7 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     MatIconModule,
     FormsModule,
+    HttpClientModule
   ],
   exports: [
     
@@ -39,4 +41,27 @@ import { FormsModule } from '@angular/forms';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-email',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-email.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-lock',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-lock.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-phone',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-phone.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-user-box',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-user-box.svg')
+    );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-people',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-people.svg')
+    );
+  }
+ }

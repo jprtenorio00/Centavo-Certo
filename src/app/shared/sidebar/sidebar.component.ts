@@ -17,12 +17,30 @@ export class SidebarComponent implements OnInit {
   userPlan: string = '';
   userData: any;
 
-  constructor(private loginService: LoginService, private authService: AuthService, private router: Router,) { }
+  // Adicione suas novas propriedades aqui
+  defaultProfileImg = '/assets/icon-logo.svg';
+  hoverProfileImg = '/assets/icon-logo-full.svg';
+  currentProfileImg: string;
+  isHovering: boolean = false;
+
+  constructor(private loginService: LoginService, private authService: AuthService, private router: Router) {
+    // Inicializa a propriedade da imagem de perfil com a imagem padrão
+    this.currentProfileImg = this.defaultProfileImg;
+  }
 
   ngOnInit() {
     setTimeout(() => {
       this.observableStatusLogin();
     }, 300);
+  }
+
+  // Adicione seus métodos de manipulação de eventos de mouse aqui
+  onMouseEnter(): void {
+    this.currentProfileImg = this.hoverProfileImg;
+  }
+
+  onMouseLeave(): void {
+    this.currentProfileImg = this.defaultProfileImg;
   }
 
   observableStatusLogin(){

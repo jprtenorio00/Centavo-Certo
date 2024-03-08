@@ -1,39 +1,43 @@
 @import 'src/styles.scss';
+
 .dialog{
     width: 40vw;
     height: 26vh;
     z-index: 1000 !important;
+    padding: 5vh;
 }
 
-  mat-dialog-actions {
+h3  {
+    font-size: min(1.823vw, 35px) !important;
+    font-weight: 900;
+    margin-bottom: 2vh !important;
+    color: $primary-color-font;
+}
+
+.mat-typography  {
+    font-size: min(1.042vw, 20px) !important;
+    margin-bottom: 2vh !important;
+    padding: 0%;
+}
+
+mat-dialog-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
+    gap: 0.5rem;   
+}
 
-    button {
-        padding: 0.5rem 2rem;
-        border: none;
-        border-radius: 6px;
-        font-family: Roboto;
-        font-size: 12px;
-        line-height: 18px;
-        font-weight: 500;
-        text-transform: capitalize;
-        cursor: pointer;
-        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    }
+.button-gradiente,
+.button-cancel {
+    width: 20%;
+    height: 4vh;
+    border: none;
+    text-decoration: none;
+    color: $secondary-color-font;
+    font-weight: 600;
+    font-size: min(1.25vw, 24px); 
+}
 
-    .cancel {
-        background-color: white;
-        color: black;
-        border: 1px;
-        border-radius: 6px;
-    }
-
-    .delete {
-        background-color: $blue-color-800;
-        color: #fff;
-    }
-
-  }
+.button-cancel{
+    color: $primary-color-font;
+}

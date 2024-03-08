@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, Renderer2 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth.service';
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
   chartDataDate: any = [];
   legendPos: any = 'below'
   colorScheme: any = {
-    domain: ['#37447E', '#929ECC', '#6F7CB2', '#505F98', '#111B47']
+    domain: ['#01B8E3', '#1095D8', '#1F72CE', '#2F50C3', '#3E2DB9']
   };
 
   averageSpendingMonth: number = 0
@@ -41,14 +41,19 @@ export class DashboardComponent implements OnInit {
   constructor(  private service: DashboardService,
                 private router: Router,
                 public loadingService: LoadingService,
-                private authService: AuthService, ) { }
+                private authService: AuthService,
+                private renderer: Renderer2  ) { }
 
   ngOnInit() {
     setTimeout(() => {
       this.getUserId();
     }, 1000);
+    this.renderer.addClass(document.body, 'app-dashboard');
   }
 
+  ngOnDestroy() {
+    this.renderer.removeClass(document.body, 'app-dashboard');
+  }
   getAllLists(){
     setTimeout(() => {
       this.getListCards();
@@ -112,7 +117,7 @@ export class DashboardComponent implements OnInit {
     }
     else if(!assignment)
     {
-      alert("Por favor, um titular");
+      alert("Por favor, atribua alguém");
       return false;
     }
     else if(!value)

@@ -1,7 +1,58 @@
 <div class="content">
     <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
-    <app-plan-information></app-plan-information>
-  
+    <section class="container-plano" id="planos">
+      <h1 class="container__titulo-secundario">Confira Nossos Planos de Adesão</h1>
+      <p class="container__subtitulo-plano">
+        Organize suas despesas de uma forma fácil, rápida e dinâmica. Consiga fazer análises em instantes sobre seus gastos e tenha uma melhor vida financeira.
+      </p>
+      
+      <div class="container-plano__plans">
+        <div class="plan">
+          <img class="container__image-plan" src="/assets/icon-basic-home.svg" alt="Plano Básico">
+          <p class="plan-price">R$4,90/mês</p>
+          <ul class="plan-features">
+            <li>Interface amigável e fácil de usar.</li>
+            <li>Dicas semanais de economia via e-mail.</li>
+            <li>Suporte por e-mail em até 48 horas.</li>
+            <li>Análise Limitada oferece insights básicos e essenciais.</li>
+          </ul>
+          <div class="plan-buttons">
+            <button class="button-gradiente" *ngIf="isLoggedIn && userPlan !== 'Plano Básico'" >Alterar Plano</button>
+            <button class="button-gradiente plan-color-current" *ngIf="isLoggedIn && userPlan === 'Plano Básico'" >Plano Atual</button>
+          </div>
+        </div>
+    
+        <div class="plan">
+          <img class="container__image-plan" src="/assets/icon-premium-home.svg" alt="Plano Básico">
+          <p class="plan-price">R$9,90/mês</p>
+          <ul class="plan-features">
+            <li>Mesmos benefícios do Plano Básico.</li>
+            <li>Exportação de dados limitada a 3 vezes por mês.</li>
+            <li>Exportação de dados em formatos Excel.</li>
+            <li>Recomendações de leitura sobre educação financeira.</li>
+          </ul>
+          <div class="plan-buttons">
+            <button class="button-gradiente" *ngIf="isLoggedIn && userPlan !== 'Plano Premium'" >Alterar Plano</button>
+            <button class="button-gradiente plan-color-current" *ngIf="isLoggedIn && userPlan === 'Plano Premium'" >Plano Atual</button>
+          </div>
+        </div>
+    
+        <div class="plan">
+          <img class="container__image-plan" src="/assets/icon-elite-home.svg" alt="Plano Básico">
+          <p class="plan-price">R$14,90/mês</p>
+          <ul class="plan-features">
+            <li>Mesmos benefícios do Plano Premium.</li>
+            <li>Exportação de dados ilimitada por mês.</li>
+            <li>Exportação de dados em formatos CSV e Excel.</li>
+            <li>Acesso à comunidade online básica do "Centavo Certo".</li>
+          </ul>
+          <div class="plan-buttons">
+            <button class="button-gradiente" *ngIf="isLoggedIn && userPlan !== 'Plano Elite'" >Alterar Plano</button>
+            <button class="button-gradiente plan-color-current" *ngIf="isLoggedIn && userPlan === 'Plano Elite'" >Plano Atual</button>
+          </div>
+        </div>
+      </div>  
+    </section>
     <div class="contact-card-container">
       <mat-card class="contact-card">
         <mat-card-header>

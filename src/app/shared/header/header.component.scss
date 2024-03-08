@@ -1,20 +1,5 @@
 @import 'src/styles.scss';
 
-mat-toolbar {
-  background-color: $background-color-header;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-mat-toolbar.logged-in {
-  padding: 3rem 1%;
-}
-
-mat-toolbar.logged-out {
-  padding: 3rem 11%;
-}
-
 .toolbar-content {
   width: 100%;
   max-width: 100vw;
@@ -23,49 +8,40 @@ mat-toolbar.logged-out {
   align-items: center;
 }
 
-.nav-links {
-  display: flex;
-  justify-content: space-between;
-  gap: 35%;
+.logo-header {
+  width: max(100px, 12vw);
 }
 
-span {
-  color: $blue-color-500;
-  font-feature-settings: 'clig' off, 'liga' off;
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2% 4% 2% 6%;
+}
+
+.navbar {
+  background-color: transparent;
+  background-image: url('/assets/background-wave.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar li a {
   text-decoration: none;
-  cursor: pointer;
+  color: $secondary-color-font;
+  font-weight: 600;
+  font-size: max(14px, 1vw);
 }
 
 .selected {
   font-weight: bold;
   border-bottom: 4px solid $blue-color-500;
-}
-
-.btn-access {
-  font-feature-settings: 'clig' off, 'liga' off;
-  font-family: Roboto;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 18px;
-  text-align: center;
-
-  padding: 0.5rem 2rem;
-  background-color: $blue-color-800;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  text-transform: capitalize;
-  text-decoration: none;
-  cursor: pointer;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-}
-
-.logo {
-  width: 20vw;
 }

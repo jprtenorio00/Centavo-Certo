@@ -46,4 +46,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  isLoginRoute() {
+    return this.router.url === '/login';
+  }
+
 }
