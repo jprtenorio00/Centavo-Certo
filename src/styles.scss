@@ -1,29 +1,38 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", sans-serif !important;
 }
 
-body {
-    background-image: url('/assets/background-wave.svg'); 
+app-start {
+    background-image: url('/assets/background-wave.png'); 
     background-size: 100%;
     background-repeat: no-repeat;
-    
+}
+
+body.app-login,
+body.app-plans,
+body.app-register {
+    overflow-y: hidden;
+}
+
+body.app-dashboard {
+    background-color: #E5E5E5 ;
+}
+  
+
+body {
     app-login,
-    app-register {
+    app-register,
+    app-dashboard {
         min-height: 87.4vh;
         background-size: 100%;
-        background-color: #D0E1FA;
+        background-image: none !important;
         background-attachment: fixed;
-        overflow-x: hidden;
-        overflow: hidden !important;
     }
     
-    app-header {
-        background-color: #D0E1FA;
-    }
-      
 }
+
 
 @media (max-height: 19999px) {
     app-login {
@@ -70,13 +79,28 @@ $sidenavbar-size: 20%;
     visibility: hidden;
 }
 
-// .list__icon{
-//     display: flex;
-//     justify-content: center;
-//     list-style-type: none;
-//     text-decoration: none;
-//     color: $blue-color-300;
-// }
+
+mat-icon{
+    font-family: 'Material Icons' !important;
+}
+.button-cancel{
+    background-color: $secondary-color-font !important;
+    color: black;
+    border: 1px;
+    text-align: center;
+    font-weight: 700 !important;
+  
+    border-radius: 0.5vw; 
+    padding: 0.5vw 1.25vw;
+        
+    cursor: pointer; 
+    box-shadow: 0 4px 8px #00000033; /* sombra leve para profundidade */
+    transition: box-shadow 0.2s; /* transição suave para efeitos de hover */
+}
+
+.button-cancel:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+}
 
 .button-gradiente {
     text-align: center;
@@ -94,3 +118,56 @@ $sidenavbar-size: 20%;
 .button-gradiente:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
 }
+
+
+.btn-access {
+    width: 12vh;
+    height: 5vh;
+    background-image: linear-gradient(to left, $primary-color-gradient, $secondary-color-gradient); 
+    align-self: center;
+  
+    font-size: min(0.938vw, 18px);
+    color: $secondary-color-font;
+    font-weight: 500;
+    
+    border: none; /* Sem borda */
+    padding: 10px 15px; /* Espaçamento interno */
+    border-radius: 7px; /* Bordas arredondadas */
+    cursor: pointer; /* Formato do cursor como ponteiro */
+    outline: none; /* Sem contorno ao focar */
+    display: flex; /* Display flex para alinhar texto e ícone */
+    align-items: center; /* Alinhamento vertical dos itens */
+    justify-content: center; /* Alinhamento horizontal dos itens */
+    gap: 10px; /* Espaço entre o texto e o ícone */
+    
+    &-img{
+      color: $secondary-color-font;
+    }
+  }
+  
+  .btn-access:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* sombra mais intensa para efeito ao passar o mouse */
+  }
+
+//   .mat-tooltip {
+//     padding: 10px !important; /* Ajuste conforme necessário */
+//   }
+
+  .mdc-tooltip__surface {
+    color: $secondary-color-font !important;
+    background-color: $primary-color-font !important;
+    font-size: 20px!important;
+    padding: 15px !important;
+    // word-break: normal !important;
+  }
+
+//   .cdk-overlay-container .mat-mdc-tooltip {
+//     --mdc-plain-tooltip-container-color: #150A62;
+//     --mdc-plain-tooltip-supporting-text-color: #FFFFFF;
+//     --mdc-plain-tooltip-container-shape: 4px;
+//     --mdc-plain-tooltip-supporting-text-line-height: 16px;
+//     --mdc-plain-tooltip-supporting-text-size: 0.7vw;
+//     --mdc-plain-tooltip-supporting-text-weight: 100%;
+//     --mdc-plain-tooltip-supporting-text-padding: 1vh;
+//     --mdc-tooltip-word-break: normal;
+//   }

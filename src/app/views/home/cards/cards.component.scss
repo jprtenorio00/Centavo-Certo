@@ -7,7 +7,6 @@
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    margin: 0 auto;
 
     .cards-card {
         background-color: #f8f8f8;
@@ -30,15 +29,15 @@
     }
 
     .cards-explanation h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         margin-bottom: 2%;
     }
     
     .cards-explanation p {
-        font-size: 14px;
+        margin-bottom: 2vh;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
@@ -46,9 +45,8 @@
     }
 
     .cards-explanation strong {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         word-wrap: break-word;
         text-align: left;
     }
@@ -74,7 +72,7 @@
     }
 
     .cards-explanation-sub h1 {
-        color: #2E3A59; 
+        color: $primary-color-font; 
         text-align: center;
         line-height: 28px;
         word-wrap: break-word;
@@ -82,9 +80,8 @@
     }
     
     .cards-explanation-sub p {
-        font-size: 14px;
+        font-size: min(0.938vw, 20px);
         line-height: 2rem;
-        font-family: Roboto;
         font-weight: 400;
         word-wrap: break-word;
         text-align: justify; 
@@ -131,29 +128,6 @@
     }
 }
 
-.btn-access {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-
-    padding: 0.5rem 2rem;
-    background-color: $blue-color-800;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-family: Roboto;
-    font-size: 12px;
-    line-height: 18px;
-    font-weight: 500;
-    text-transform: capitalize;
-    cursor: pointer;
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-
-    mat-icon {
-        font-size: 20px;
-    }
-}
 
 .border {
     width: 100%;
@@ -172,4 +146,20 @@ app-loading-spinner{
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+.align-label-input{
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-subtitulo{
+    font-size: min(0.938vw, 18px);
+    color: $primary-color-font;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
+}
+
+::ng-deep .mat-mdc-text-field-wrapper {
+    background-color: white;
 }

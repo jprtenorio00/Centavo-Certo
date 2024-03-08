@@ -30,31 +30,47 @@
       </div>
 
       <div class="align-input-button">
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Banco emissor: </mat-label>
-          <input matInput type="text" formControlName="bankIssuer" class="border">
-      </mat-form-field>
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Banco emissor
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <input matInput type="text" formControlName="bankIssuer" class="border" placeholder="Digite aqui">
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Tipo do cartão: </mat-label>
-          <mat-select formControlName="typeCard">
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Tipo do cartão
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <mat-select formControlName="typeCard" placeholder="Selecione aqui">
               <mat-option *ngFor="let type of listTypeCard" [value]="type">{{ type }}</mat-option>
-          </mat-select>
-        </mat-form-field>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Últimos Quatro Dígitos: </mat-label>
-          <input matInput class="border" formControlName="cardDigits" type="text" maxlength="19"
-                 id="cardDigits" placeholder="xxxx.xxxx.xxxx.0000" 
-                 (input)="formatCardInput($event)">
-        </mat-form-field>
-        
-        <mat-form-field class="input-field" appearance="outline">
-          <mat-label>Natureza do Cartão: </mat-label>
-          <mat-select formControlName="natureCard">
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Últimos Quatro Dígitos
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline" placeholder="Digite aqui">
+            <input matInput class="border" formControlName="cardDigits" type="text" maxlength="19"
+            id="cardDigits" placeholder="xxxx.xxxx.xxxx.0000" 
+            (input)="formatCardInput($event)">
+          </mat-form-field>
+        </div>
+
+        <div class="align-label-input">
+          <label class="dash-subtitulo">Natureza do Cartão
+            <mat-icon matTooltip="Classificação da despesa, como alimentação, transporte ou educação.." class="info-icon custom-tooltip">info</mat-icon>
+          </label>
+          <mat-form-field class="input-field" appearance="outline">
+            <mat-select formControlName="natureCard" placeholder="Selecione aqui">
               <mat-option *ngFor="let nature of listNatureCard" [value]="nature">{{ nature }}</mat-option>
           </mat-select>
-        </mat-form-field>
+          </mat-form-field>
+        </div>
       
         <button (click)="onSubmit()" class="btn-access" matTooltip="Salvar categoria">
           Enviar

@@ -59,5 +59,9 @@ export class AppModule {
       'my-icon-user-box',
       this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-user-box.svg')
     );
+    this.matIconRegistry.addSvgIcon(
+      'my-icon-people',
+      this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/icon-people.svg')
+    );
   }
  }

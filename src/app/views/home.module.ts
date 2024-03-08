@@ -61,6 +61,7 @@ export const routes: Routes = [
       { path: 'account', component: AccountComponent },
       { path: 'categories', component: CategoriesComponent },
       { path: 'cards', component: CardsComponent },
+      { path: 'plans', component: PlansComponent },
       { path: 'holders', component: HoldersComponent },
       { path: 'manage', component: ManageComponent },
     ]

@@ -1,42 +1,46 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav">
-    <img src="/assets/logo-horizontal-centavo-certo.svg" alt="Logo" class="logo">
+  <mat-sidenav #sidenav mode="side" opened="true" class="sidenav"
+      (mouseenter)="isHovering = true" 
+      (mouseleave)="isHovering = false">
+    <img [src]="isHovering ? hoverProfileImg : currentProfileImg" 
+      alt="Perfil" 
+      class="icon-logo">
+    
     <mat-nav-list>
-      <a (click)="scrollToTop()" mat-list-item routerLink="dashboard" routerLinkActive="selected" routerLinkActive="selected">
+      <a (click)="scrollToTop()" mat-list-item routerLink="dashboard" routerLinkActive="selected" class="sidebar-item">
         <img src="/assets/icon-dashboard.svg" alt="Ícone Dashboard" class="icons">
-        Dashboard
+        <span class="icon-text">Dashboard</span>
       </a>
-      <a (click)="scrollToTop()" mat-list-item routerLink="plans" routerLinkActive="selected" routerLinkActive="selected">
+      <a (click)="scrollToTop()" mat-list-item routerLink="plans" routerLinkActive="selected" class="sidebar-item">
         <img src="/assets/icon-plans.svg" alt="Ícone Plano" class="icons">
-        Planos
+        <span class="icon-text">Planos</span>
       </a>
-      <a (click)="scrollToTop()" mat-list-item routerLink="categories" routerLinkActive="selected" routerLinkActive="selected">
+      <a (click)="scrollToTop()" mat-list-item routerLink="categories" routerLinkActive="selected" class="sidebar-item">
         <img src="/assets/icon-category.svg" alt="Ícone Cadastro Categorias" class="icons">
-        Cadastro de Categorias
+        <span class="icon-text">Cadastro de Categorias</span>
       </a>
-      <a (click)="scrollToTop()" mat-list-item routerLink="cards" routerLinkActive="selected" routerLinkActive="selected">
-        <img src="/assets/icon-card.svg" alt="Ícone Cadastro de Cartões" class="icons">
-        Cadastro de Cartões
+      <a (click)="scrollToTop()" mat-list-item routerLink="cards" routerLinkActive="selected" class="sidebar-item">
+        <img src="/assets/icon-card.svg" alt="Ícone Cadastro de Cartões" class="icons-card">
+        <span class="icon-text">Cadastro de Cartões</span>
       </a>
-      <a (click)="scrollToTop()" mat-list-item routerLink="holders" routerLinkActive="selected" routerLinkActive="selected">
+      <a (click)="scrollToTop()" mat-list-item routerLink="holders" routerLinkActive="selected" class="sidebar-item">
         <img src="/assets/icon-holders.svg" alt="Ícone Cadastro de Titulares" class="icons">
-        Cadastro de Titulares
+        <span class="icon-text">Cadastro de Titulares</span>
       </a>
-      <a (click)="scrollToTop()" mat-list-item routerLink="manage" routerLinkActive="selected" routerLinkActive="selected">
-        <img src="/assets/icon-manage.svg" alt="Ícone Gerenciar Despesas" class="icons-category">
-        Gerenciar Despesas
+      <a (click)="scrollToTop()" mat-list-item routerLink="manage" routerLinkActive="selected" class="sidebar-item">
+        <img src="/assets/icon-manage.svg" alt="Ícone Gerenciar Despesas" class="icons">
+        <span class="icon-text">Gerenciar Despesas</span>
       </a>
     </mat-nav-list>
 
     <div class="sidenavbar-config">
       <img src="/assets/icon-profile.svg" alt="Perfil" class="profile">
-
       <div class="toolbar-user-info">
         <span class="user-name">{{userName}}</span>
         <span class="user-plan">{{userPlan}}</span>
       </div>
-
-      <img src="/assets/icon-sing-out.svg" alt="Sair" class="sign-out" (click)="onLogout()">
+      <img src="/assets/icon-logout.svg" alt="Sair" class="sign-out" (click)="onLogout()">
     </div>
+    
   </mat-sidenav>
 </mat-sidenav-container>

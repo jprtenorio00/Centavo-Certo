@@ -49,14 +49,12 @@
     width: 100%;
 }
 
-
 .button-gradiente {
     border: none;
     text-decoration: none;
     color: $secondary-color-font;
     font-weight: 600;
-    font-size: min(1.25vw, 24px);
-    
+    font-size: min(1.25vw, 24px); 
 }
   
 mat-label{
@@ -115,3 +113,4 @@ button, .mat-icon-button {
         margin-left: 0.2vw;
     }
 }
+
