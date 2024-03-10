@@ -82,4 +82,51 @@ async getListHolder(userId: string): Promise<any[]> {
     }
 }
 
+async listFilteredExpenses(filters: { userId: string, month?: string, year?: string, category?: string, holder?: string }): Promise<any[]> {
+  try {
+    const expensesCollectionRef = query(collection(db, 'users', filters.userId, 'dashboard'));
+    console.log("expensesCollectionRef ", expensesCollectionRef )
+    
+    // Cria a consulta base a partir da coleção
+    let q = query(expensesCollectionRef);
+    
+    // Aplicar filtro por mês se fornecido
+    console.log("SERVICE: filters.month ", filters.month)
+    if (filters.year !== '0' && filters.month !== '0') {
+      // Se tanto o mês quanto o ano forem fornecidos, filtre por ambos
+      const startDate = new Date(Number(filters.year), Number(filters.month) - 1, 1);
+      const endDate = new Date(Number(filters.year), Number(filters.month), 0); // Último dia do mês
+
+      q = query(q, where('date', '>=', startDate), where('date', '<=', endDate));
+    }
+    
+    // Aplicar filtro por ano se fornecido (e se o mês não for especificado, para evitar conflito)
+    console.log("SERVICE: filters.year && !filters.month ", filters.year)
+    if (filters.year !== '0' && !filters.month) {
+      const startYear = new Date(Number(filters.year), 0, 1); // Primeiro dia do ano
+      const endYear = new Date(Number(filters.year), 11, 31); // Último dia do ano
+
+      q = query(q, where('date', '>=', startYear), where('date', '<=', endYear));
+    }
+
+    // // Aplicar filtro por categoria se fornecido
+    console.log("SERVICE: filters.category ", filters.category)
+    if (filters.category) {
+      q = query(q, where('category', '==', filters.category));
+    }
+    
+    // Aplicar filtro por titular se fornecido
+    console.log("SERVICE: filters.holder ", filters.holder)
+    if (filters.holder) {
+      q = query(q, where('assignment', '==', filters.holder));
+    }
+
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    throw error;
+  }
+}
+
+
 }

@@ -48,15 +48,15 @@
     <div class="align-label-input">
       <label class="dash-subtitulo">Titular</label>
       <mat-form-field class="input-field" appearance="outline">
-        <mat-select [(ngModel)]="selectedCategory" (openedChange)="onMatSelectOpen($event)">
+        <mat-select [(ngModel)]="selectedHolder" (openedChange)="onMatSelectOpen($event)">
           <mat-option value="">Todos os titulares</mat-option>
           <mat-option *ngFor="let assignmentFilter of listAssignment" [value]="assignmentFilter.name">{{ assignmentFilter.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <button class="button-gradiente" >Aplicar filtro</button>
-    <button class="button-gradiente" >Exportar Despesas</button>
+    <button class="button-gradiente" (click)="applyFilters()" [disabled]="isFilterButtonDisabled">Aplicar filtro</button>
+    <button class="button-gradiente" (click)="exportListToXLS()">Exportar Despesas</button>
     <button class="button-gradiente" >Importar Despesas</button>
     <mat-card class="expense-card-sub">
       <div class="expense-explanation-sub">

@@ -1,3 +1,4 @@
+import * as XLSX from 'xlsx';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/service/auth.service';
@@ -32,6 +33,8 @@ export class ManageComponent implements OnInit {
 
   years: number[] = [];
 
+  isFilterButtonDisabled: boolean = true; // Começa como true para o botão iniciar desabilitado
+
   constructor(private service: ManageService,
               private authService: AuthService,
               public loadingService: LoadingService,
@@ -57,24 +60,63 @@ export class ManageComponent implements OnInit {
   }
 
   // Função para aplicar os filtros
-  applyFilters() {
-    let filteredExpenses = [...this.listExpenses];
+  applyFilters(): void {
 
-    if (this.selectedMonth) {
-      // Aplicar filtro por mês
-    }
-    if (this.selectedYear) {
-      // Aplicar filtro por ano
-    }
-    if (this.selectedCategory) {
-      // Aplicar filtro por categoria
-    }
-    if (this.selectedHolder) {
-      // Aplicar filtro por titular
+    if (this.selectedMonth && (this.selectedYear === '0' || !this.selectedYear)) {
+      // Exibe uma mensagem de erro ou alerta para o usuário
+      alert('Por favor, selecione um ano para aplicar o filtro com o mês selecionado.');
+      return; // Interrompe a execução do método aqui
     }
 
-    this.listExpenses = filteredExpenses;
+    // Exibe o spinner de carregamento
+    this.loadingService.show();
+    this.isLoading = true;
+  
+    const userId = this.currentUserID as string;
+    
+    console.log("Entrou applyFilters")
+    console.log("selectedMonth", this.selectedMonth)
+    console.log("selectedYear", this.selectedYear)
+    console.log("selectedCategory", this.selectedCategory)
+    console.log("selectedHolder", this.selectedHolder)
+    console.log("userId", userId)
+
+    // Chama a função no serviço que faz a consulta na base de dados com os filtros aplicados
+    this.service.listFilteredExpenses({
+      month: this.selectedMonth,
+      year: this.selectedYear,
+      category: this.selectedCategory,
+      holder: this.selectedHolder,
+      userId: userId
+    }).then(filteredExpenses => {
+      console.log("VOLTOU");
+      // Atualiza a lista de despesas com os resultados filtrados
+      this.listExpenses = filteredExpenses;
+      // Esconde o spinner de carregamento
+      this.isLoading = false;
+      this.loadingService.hide();
+    }).catch(error => {
+      console.error('Erro ao aplicar os filtros:', error);
+      // Esconde o spinner de carregamento e trata o erro conforme necessário
+      this.isLoading = false;
+      this.loadingService.hide();
+    });
   }
+
+
+
+  // Adicione esta lógica no método onde você trata as mudanças de seleção dos filtros
+  updateFilterButtonState(): void {
+    // Verifica se um mês foi selecionado verificando se 'selectedMonth' não é uma string vazia
+    const isMonthSelected = this.selectedMonth !== '';
+  
+    // Verifica se o ano não foi selecionado ou é '0'
+    const isYearNotSelected = !this.selectedYear || this.selectedYear === '0';
+  
+    // O botão deve ser desabilitado se um mês estiver selecionado E o ano não estiver selecionado ou for '0'
+    this.isFilterButtonDisabled = isMonthSelected && isYearNotSelected;
+  }
+  
 
   async getUserId(){
     try {
@@ -296,5 +338,28 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  exportListToXLS() {
+    // Criar uma nova planilha de trabalho
+    const workbook = XLSX.utils.book_new();
 
+    // Converter a lista de despesas para um formato adequado para a planilha
+    const worksheetData = this.listExpenses.map(expense => ({
+      Data: expense.date, // assumindo que 'expense.date' já está no formato desejado
+      Valor: expense.value,
+      Categoria: expense.category,
+      Titular: expense.assignment, // assumindo que 'assignment' corresponde ao titular
+      Descrição: expense.description,
+      Cartão: expense.card,
+      Parcela: expense.installment
+    }));
+
+    // Adicionar os dados à planilha
+    const worksheet = XLSX.utils.json_to_sheet(worksheetData);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Despesas');
+
+    // Gerar um arquivo Excel (XLSX)
+    XLSX.writeFile(workbook, 'lista-de-despesas.xlsx');
+  }
+
+  
 }
