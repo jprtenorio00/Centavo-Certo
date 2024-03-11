@@ -84,40 +84,30 @@ async getListHolder(userId: string): Promise<any[]> {
 
 async listFilteredExpenses(filters: { userId: string, month?: string, year?: string, category?: string, holder?: string }): Promise<any[]> {
   try {
-    const expensesCollectionRef = query(collection(db, 'users', filters.userId, 'dashboard'));
-    console.log("expensesCollectionRef ", expensesCollectionRef )
+    const expensesCollectionRef = collection(db, 'users', filters.userId, 'dashboard');
     
-    // Cria a consulta base a partir da coleção
+    // Inicia a query base
     let q = query(expensesCollectionRef);
-    
-    // Aplicar filtro por mês se fornecido
-    console.log("SERVICE: filters.month ", filters.month)
-    if (filters.year !== '0' && filters.month !== '0') {
-      // Se tanto o mês quanto o ano forem fornecidos, filtre por ambos
-      const startDate = new Date(Number(filters.year), Number(filters.month) - 1, 1);
-      const endDate = new Date(Number(filters.year), Number(filters.month), 0); // Último dia do mês
 
-      q = query(q, where('date', '>=', startDate), where('date', '<=', endDate));
+    // Aplica filtro por mês, se fornecido
+    if (filters.month && filters.month !== '0') {
+      // Como 'month' agora é um campo separado, você pode filtrar diretamente por ele
+      q = query(q, where('month', '==', Number(filters.month)));
     }
     
-    // Aplicar filtro por ano se fornecido (e se o mês não for especificado, para evitar conflito)
-    console.log("SERVICE: filters.year && !filters.month ", filters.year)
-    if (filters.year !== '0' && !filters.month) {
-      const startYear = new Date(Number(filters.year), 0, 1); // Primeiro dia do ano
-      const endYear = new Date(Number(filters.year), 11, 31); // Último dia do ano
-
-      q = query(q, where('date', '>=', startYear), where('date', '<=', endYear));
+    // Aplica filtro por ano, se fornecido
+    if (filters.year && filters.year !== '0') {
+      // Similarmente, 'year' é um campo separado e pode ser usado diretamente no filtro
+      q = query(q, where('year', '==', Number(filters.year)));
     }
 
-    // // Aplicar filtro por categoria se fornecido
-    console.log("SERVICE: filters.category ", filters.category)
-    if (filters.category) {
+    // Aplica filtro por categoria, se fornecido
+    if (filters.category && filters.category !== '') {
       q = query(q, where('category', '==', filters.category));
     }
     
-    // Aplicar filtro por titular se fornecido
-    console.log("SERVICE: filters.holder ", filters.holder)
-    if (filters.holder) {
+    // Aplica filtro por titular, se fornecido
+    if (filters.holder && filters.holder !== '') {
       q = query(q, where('assignment', '==', filters.holder));
     }
 
@@ -127,6 +117,7 @@ async listFilteredExpenses(filters: { userId: string, month?: string, year?: str
     throw error;
   }
 }
+
 
 
 }

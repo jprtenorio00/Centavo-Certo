@@ -69,6 +69,8 @@ export class DashboardService {
         const categoriesCollection = collection(db, 'users', userId, 'dashboard');
         await addDoc(categoriesCollection, {
           date: data.date,
+          month: data.month, // Salva o mês extraído
+          year: data.year, // Salva o ano extraído
           assignment: data.assignment,
           value: data.value,
           installment: data.installment,

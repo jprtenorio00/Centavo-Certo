@@ -77,18 +77,24 @@ export class DashboardComponent implements OnInit {
     this.loadingService.show();
     try {
       const currentUserUID = this.currentUserID;
-      const date = this.formGroup.get('date')?.value;
+      const dateValue = this.formGroup.get('date')?.value;
+      const date = new Date(dateValue); // Converte o valor do formulário para um objeto Date
+      const dateString = date.toISOString().split('T')[0]; // Converte o objeto Date para uma string no formato "YYYY-MM-DD"
+      const month = date.getMonth() + 1; // getMonth() retorna um índice baseado em 0, então adicione 1
+      const year = date.getFullYear();
       const assignment = this.formGroup.get('assignment')?.value;
       const value = this.formGroup.get('value')?.value;
       const installment = this.formGroup.get('installment')?.value;
       const card = this.formGroup.get('card')?.value;
       const description = this.formGroup.get('description')?.value;
       const category = this.formGroup.get('category')?.value;
-      const checkInputs = this.checkInformations(date, assignment, value, installment, card, description, category)
-
+      const checkInputs = this.checkInformations(dateString, assignment, value, installment, card, description, category)
+  
       if (checkInputs && currentUserUID) {
         await this.service.addValuesCard({
-          date: date,
+          date: dateString, // Salva o objeto Date completo
+          month: month, // Salva o mês extraído
+          year: year, // Salva o ano extraído
           assignment: assignment,
           value: value,
           installment: installment,
@@ -107,6 +113,7 @@ export class DashboardComponent implements OnInit {
       }, 500);
     }
   }
+ 
 
   checkInformations(date: String, assignment: String, value: String, installment: String,
                     card: String, description: String, category: String){
@@ -330,16 +337,13 @@ export class DashboardComponent implements OnInit {
 
   setValueAverageSpending(data: Array<any>) {
     let total: number = 0;
-    const currentMonth = new Date().getMonth() + 1;
-    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1; // Mês atual
+    const currentYear = new Date().getFullYear(); // Ano atual
   
     data.forEach(element => {
-      if (element.category && element.date) {
-        const date = new Date(element.date.seconds * 1000);
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        
-        if (month === currentMonth && year === currentYear) {
+      if (element.category && element.month && element.year) {
+        // Utilize os campos 'month' e 'year' diretamente para a comparação
+        if (element.month === currentMonth && element.year === currentYear) {
           total += element.value;
         }
       }
@@ -405,17 +409,14 @@ export class DashboardComponent implements OnInit {
   }
 
   setValueExpensesCountInMonth(data: Array<any>) {
-    const currentMonth = new Date().getMonth() + 1;
-    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth() + 1; // Mês atual
+    const currentYear = new Date().getFullYear(); // Ano atual
     let count = 0;
   
     data.forEach(element => {
-      if (element.category && element.date) {
-        const date = new Date(element.date.seconds * 1000);
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-  
-        if (month === currentMonth && year === currentYear) {
+      if (element.category && element.month && element.year) {
+        // Já que 'month' e 'year' agora são campos separados, você pode usá-los diretamente
+        if (element.month === currentMonth && element.year === currentYear) {
           count++;
         }
       }
@@ -423,5 +424,6 @@ export class DashboardComponent implements OnInit {
   
     this.averageSpendingInMonth = count;
   }
+  
 
 }

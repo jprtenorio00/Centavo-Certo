@@ -7,7 +7,7 @@
      <div class="align-label-input">
       <label class="dash-subtitulo">Mês</label>
       <mat-form-field class="input-field" appearance="outline">
-        <mat-select [(ngModel)]="selectedMonth">
+        <mat-select [(ngModel)]="filters.month">
           <mat-option value="">Todos os meses</mat-option>
           <mat-option value="1">Janeiro</mat-option>
           <mat-option value="2">Fevereiro</mat-option>
@@ -28,7 +28,7 @@
     <div class="align-label-input">
       <label class="dash-subtitulo">Ano</label>
       <mat-form-field class="input-field" appearance="outline">
-        <mat-select [(ngModel)]="selectedYear">
+        <mat-select [(ngModel)]="filters.year">
           <mat-option value="0">Todos os anos</mat-option>
           <mat-option *ngFor="let yearFilter of years" [value]="yearFilter">{{ yearFilter }}</mat-option>
         </mat-select>
@@ -38,9 +38,9 @@
     <div class="align-label-input">
       <label class="dash-subtitulo">Categoria</label>
       <mat-form-field class="input-field" appearance="outline">
-        <mat-select [(ngModel)]="selectedCategory" (openedChange)="onMatSelectOpen($event)">
+        <mat-select [(ngModel)]="filters.category">
           <mat-option value="">Todas as categorias</mat-option>
-          <mat-option *ngFor="let categoryFilter of listCategory" [value]="categoryFilter.category">{{ categoryFilter.category }}</mat-option>
+          <mat-option *ngFor="let categoryFilter of listCategories" [value]="categoryFilter.category">{{ categoryFilter.category }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -48,14 +48,15 @@
     <div class="align-label-input">
       <label class="dash-subtitulo">Titular</label>
       <mat-form-field class="input-field" appearance="outline">
-        <mat-select [(ngModel)]="selectedHolder" (openedChange)="onMatSelectOpen($event)">
+        <mat-select [(ngModel)]="filters.holder">
           <mat-option value="">Todos os titulares</mat-option>
           <mat-option *ngFor="let assignmentFilter of listAssignment" [value]="assignmentFilter.name">{{ assignmentFilter.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
 
-    <button class="button-gradiente" (click)="applyFilters()" [disabled]="isFilterButtonDisabled">Aplicar filtro</button>
+    <button class="button-gradiente" (click)="applyFilters()">Aplicar filtro</button>
+    <button class="button-gradiente" (click)="resetFilters()">Redefinir Filtros</button>
     <button class="button-gradiente" (click)="exportListToXLS()">Exportar Despesas</button>
     <button class="button-gradiente" >Importar Despesas</button>
     <mat-card class="expense-card-sub">
@@ -96,7 +97,7 @@
 
               <ng-container *ngIf="item.editing">
                 <!-- Modo de edição -->
-                <td class="witdh-10" ><input class="input-field" type="date" [(ngModel)]="item.date"></td>
+                <td class="witdh-10" ><input class="input-field" type="date" [(ngModel)]="item.editDate"></td>
                 <td class="witdh-30">
                   <mat-select [(ngModel)]="item.assignment">
                     <mat-option *ngFor="let assignmentItem of listAssignment" [value]="assignmentItem.name">
@@ -116,7 +117,7 @@
                 <td><input class="input-field" type="text" [(ngModel)]="item.description"></td>
                 <td class="witdh-30">
                   <mat-select [(ngModel)]="item.category">
-                    <mat-option *ngFor="let categoryItem of listCategory" [value]="categoryItem.category">
+                    <mat-option *ngFor="let categoryItem of listCategories" [value]="categoryItem.category">
                       {{categoryItem.category}}
                     </mat-option>
                   </mat-select>
@@ -134,7 +135,7 @@
       </div>
     </mat-card>
   </section>
-  <div *ngIf="!isLoading && listExpenses.length === 0" class="expense-card-sub expense-explanation-sub">
+  <div *ngIf="!isLoading$ && listExpenses.length === 0" class="expense-card-sub expense-explanation-sub">
     <h1>Nenhuma despesa cadastrada. Por favor, cadastre uma despesa primeiro.</h1>
     <a class="btn-expense" href="/dashboard">Cadastrar Despesa</a>
   </div>
