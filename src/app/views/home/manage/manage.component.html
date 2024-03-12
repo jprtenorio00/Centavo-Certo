@@ -58,7 +58,8 @@
     <button class="button-gradiente" (click)="applyFilters()">Aplicar filtro</button>
     <button class="button-gradiente" (click)="resetFilters()">Redefinir Filtros</button>
     <button class="button-gradiente" (click)="exportListToXLS()">Exportar Despesas</button>
-    <button class="button-gradiente" >Importar Despesas</button>
+    <input type="file" (change)="onFileSelected($event)" accept="application/pdf">
+    <button class="button-gradiente">Importar Despesas</button>
     <mat-card class="expense-card-sub">
       <div class="expense-explanation-sub">
         <h1>Despesas Cadastradas</h1>
