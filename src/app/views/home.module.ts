@@ -36,6 +36,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { ManageComponent } from './home/manage/manage.component';
 import { FormsModule } from '@angular/forms';
 import { CustomDateAdapter } from '../shared/custom-date/custom-date.component';
+import { ImportExpensesComponent } from './home/import-expenses/import-expenses.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -83,6 +85,7 @@ export const routes: Routes = [
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatDialogModule,
+    MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
     RouterModule.forChild(routes),
@@ -111,7 +114,8 @@ export const routes: Routes = [
     PhoneMaskDirective,
     LoadingSpinnerComponent,
     ConfirmDialogComponent,
-    ManageComponent
+    ManageComponent,
+    ImportExpensesComponent
   ],
   providers: [
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },

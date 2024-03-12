@@ -67,6 +67,7 @@ export class DashboardService {
     async addValuesCard(data: any, userId: string): Promise<void> {
       try {
         const categoriesCollection = collection(db, 'users', userId, 'dashboard');
+        console.log("data", data)
         await addDoc(categoriesCollection, {
           date: data.date,
           month: data.month, // Salva o mês extraído

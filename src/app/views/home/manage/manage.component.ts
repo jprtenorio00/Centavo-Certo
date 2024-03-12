@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/service/loading.service';
 import { ManageService } from 'src/app/service/manage.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { BehaviorSubject } from 'rxjs';
+import { ImportExpensesComponent } from '../import-expenses/import-expenses.component';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'assets/pdf.worker.js';
 
@@ -85,6 +86,8 @@ export class ManageComponent implements OnInit {
         this.listExpenses = await this.service.listExpenses(userId);
         this.extractYearsFromExpenses();
         this.processExpensesData(this.listExpenses);
+        console.log("listExpenses.length", this.listExpenses.length)
+        console.log("loading$", this.loading$)
       } catch (error) {
         console.error('Error loading expenses list:', error);
       }
@@ -256,87 +259,101 @@ export class ManageComponent implements OnInit {
       return { month, year };
     }  
 
-    async readPdfData(file: File) {
-      try {
-        const fileAsArrayBuffer = await file.arrayBuffer();
-        const pdfDocument = await pdfjsLib.getDocument(new Uint8Array(fileAsArrayBuffer)).promise;
-        const fullText = await this.readPdfText(pdfDocument);
-        const { valoresText } = this.extractRelevantText(fullText);
-        const potentialTransactions = this.divideIntoPotentialTransactions(valoresText);
-        const transactions: Transaction[] = potentialTransactions.map(t => this.processTransaction(t, fullText)).filter(t => t !== null) as Transaction[];
+    // async readPdfData(file: File) {
+    //   try {
+    //     const fileAsArrayBuffer = await file.arrayBuffer();
+    //     const pdfDocument = await pdfjsLib.getDocument(new Uint8Array(fileAsArrayBuffer)).promise;
+    //     const fullText = await this.readPdfText(pdfDocument);
+    //     const { valoresText } = this.extractRelevantText(fullText);
+    //     const potentialTransactions = this.divideIntoPotentialTransactions(valoresText);
+    //     const transactions: Transaction[] = potentialTransactions.map(t => this.processTransaction(t, fullText)).filter(t => t !== null) as Transaction[];
     
-        console.log(transactions);
-      } catch (error) {
-        console.error('Erro ao ler o PDF:', error);
-      }
+    //     console.log(transactions);
+    //   } catch (error) {
+    //     console.error('Erro ao ler o PDF:', error);
+    //   }
+    // }
+    
+    // onFileSelected(event: Event) {
+    //   const input = event.target as HTMLInputElement; // Aserção de tipo para HTMLInputElement
+    //   if (input.files && input.files.length) {
+    //     const file = input.files[0];
+    //     this.readPdfData(file);
+    //   }
+    // }
+    
+    // async readPdfText(pdfDocument: pdfjsLib.PDFDocumentProxy): Promise<string> {
+    //   let fullText = '';
+    //   for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
+    //     const page = await pdfDocument.getPage(pageNum);
+    //     const textContent = await page.getTextContent();
+    //     fullText += textContent.items.map(item => ('str' in item) ? item.str : '').join('');
+    //   }
+    //   return fullText;
+    // }
+    
+    // extractRelevantText(fullText: string): { extractedText: string, valoresText: string } {
+    //   const startIndex = fullText.indexOf("TRANSAÇÕES ");
+    //   let extractedText = '';
+    //   let valoresText = '';
+    
+    //   if (startIndex !== -1) {
+    //     extractedText = fullText.substring(startIndex);
+    //     const startIndexValores = extractedText.indexOf("VALORES EM R$");
+    
+    //     if (startIndexValores !== -1) {
+    //       valoresText = extractedText.substring(startIndexValores + "VALORES EM R$".length).trim();
+    //     }
+    //   }
+    
+    //   return { extractedText, valoresText };
+    // }
+    
+    // divideIntoPotentialTransactions(valoresText: string): string[] {
+    //   return valoresText.split(/(?=\d{2} [A-Z]{3})/);
+    // }
+    
+    // processTransaction(transaction: string, fullText: string): Transaction | null {
+    //   const regex = /(\d{2} [A-Z]{3}) (.*?) ?(?:- (\d+\/\d+))? ?(\d+,\d{2})/;
+    //   const match = regex.exec(transaction);
+    
+    //   if (match) {
+    //     const [_, date, description, installment, value] = match;
+    //     if (!description.trim() || description.includes("VALORES EM R$BRL")) {
+    //       return null;
+    //     }
+    
+    //     const dayMonth = date.split(" ");
+    //     const monthKey = dayMonth[1].toUpperCase() as MonthKey;
+    
+    //     const regexAno = /Data do vencimento: \d{2} [A-Z]{3} (\d{4})/;
+    //     const matchAno = fullText.match(regexAno);
+    //     const anoFatura = matchAno ? matchAno[1] : '';
+    
+    //     const formattedDate = `${dayMonth[0]}/${monthNumbers[monthKey]}/${anoFatura}`;
+    
+    //     return {
+    //       date: formattedDate,
+    //       description: description.trim(),
+    //       installment: installment || "1/1",
+    //       value: value.replace(',', '.')
+    //     };
+    //   }
+    
+    //   return null;
+    // } 
+
+    openImportExpenses(): void {
+
+      const dialogRef = this.dialog.open(ImportExpensesComponent, {
+        width: '800px'
+        // Você pode passar dados para o dialog se necessário
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('O dialog foi fechado');
+        // Use o resultado 'result' aqui, que é o valor retornado pelo dialog
+      });
     }
-    
-    onFileSelected(event: Event) {
-      const input = event.target as HTMLInputElement; // Aserção de tipo para HTMLInputElement
-      if (input.files && input.files.length) {
-        const file = input.files[0];
-        this.readPdfData(file);
-      }
-    }
-    
-    async readPdfText(pdfDocument: pdfjsLib.PDFDocumentProxy): Promise<string> {
-      let fullText = '';
-      for (let pageNum = 1; pageNum <= pdfDocument.numPages; pageNum++) {
-        const page = await pdfDocument.getPage(pageNum);
-        const textContent = await page.getTextContent();
-        fullText += textContent.items.map(item => ('str' in item) ? item.str : '').join('');
-      }
-      return fullText;
-    }
-    
-    extractRelevantText(fullText: string): { extractedText: string, valoresText: string } {
-      const startIndex = fullText.indexOf("TRANSAÇÕES ");
-      let extractedText = '';
-      let valoresText = '';
-    
-      if (startIndex !== -1) {
-        extractedText = fullText.substring(startIndex);
-        const startIndexValores = extractedText.indexOf("VALORES EM R$");
-    
-        if (startIndexValores !== -1) {
-          valoresText = extractedText.substring(startIndexValores + "VALORES EM R$".length).trim();
-        }
-      }
-    
-      return { extractedText, valoresText };
-    }
-    
-    divideIntoPotentialTransactions(valoresText: string): string[] {
-      return valoresText.split(/(?=\d{2} [A-Z]{3})/);
-    }
-    
-    processTransaction(transaction: string, fullText: string): Transaction | null {
-      const regex = /(\d{2} [A-Z]{3}) (.*?) ?(?:- (\d+\/\d+))? ?(\d+,\d{2})/;
-      const match = regex.exec(transaction);
-    
-      if (match) {
-        const [_, date, description, installment, value] = match;
-        if (!description.trim() || description.includes("VALORES EM R$BRL")) {
-          return null;
-        }
-    
-        const dayMonth = date.split(" ");
-        const monthKey = dayMonth[1].toUpperCase() as MonthKey;
-    
-        const regexAno = /Data do vencimento: \d{2} [A-Z]{3} (\d{4})/;
-        const matchAno = fullText.match(regexAno);
-        const anoFatura = matchAno ? matchAno[1] : '';
-    
-        const formattedDate = `${dayMonth[0]}/${monthNumbers[monthKey]}/${anoFatura}`;
-    
-        return {
-          date: formattedDate,
-          description: description.trim(),
-          installment: installment || "1/1",
-          value: value.replace(',', '.')
-        };
-      }
-    
-      return null;
-    } 
+
 }

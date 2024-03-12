@@ -1,7 +1,7 @@
 <app-loading-spinner *ngIf="loading$ | async"></app-loading-spinner>
 
 <div class="content-expense">
-  <section *ngIf="listExpenses.length > 0">
+  <section>
 
     <h1>Filtros</h1>
      <div class="align-label-input">
@@ -58,8 +58,8 @@
     <button class="button-gradiente" (click)="applyFilters()">Aplicar filtro</button>
     <button class="button-gradiente" (click)="resetFilters()">Redefinir Filtros</button>
     <button class="button-gradiente" (click)="exportListToXLS()">Exportar Despesas</button>
-    <input type="file" (change)="onFileSelected($event)" accept="application/pdf">
-    <button class="button-gradiente">Importar Despesas</button>
+
+    <button class="button-gradiente" (click)="openImportExpenses()">Importar Despesas</button>
     <mat-card class="expense-card-sub">
       <div class="expense-explanation-sub">
         <h1>Despesas Cadastradas</h1>
@@ -136,8 +136,8 @@
       </div>
     </mat-card>
   </section>
-  <div *ngIf="!isLoading$ && listExpenses.length === 0" class="expense-card-sub expense-explanation-sub">
+  <!-- <div *ngIf="listExpenses.length === 0" class="expense-card-sub expense-explanation-sub">
     <h1>Nenhuma despesa cadastrada. Por favor, cadastre uma despesa primeiro.</h1>
     <a class="btn-expense" href="/dashboard">Cadastrar Despesa</a>
-  </div>
+  </div> -->
 </div>

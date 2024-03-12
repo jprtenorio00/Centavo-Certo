@@ -1,0 +1,6 @@
+.btn-access:disabled {
+    /* Estilos para o botão quando está desabilitado */
+    background-color: #cccccc; /* Cor de fundo cinza */
+    color: #666666; /* Cor do texto mais escuro para indicar que está desabilitado */
+    cursor: not-allowed; /* O cursor será 'not-allowed' para indicar que o botão não é clicável */
+  }

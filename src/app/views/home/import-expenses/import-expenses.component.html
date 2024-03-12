@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>Importar Despesa</h2>
+<div mat-dialog-content class="dialog">
+    <div class="align-label-input">
+        <label class="dash-subtitulo">Vincular fatura a qual Titular:</label>
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-select [(ngModel)]="filters.holder" name="holder" required>
+            <mat-option value="">Todos os titulares</mat-option>
+            <mat-option *ngFor="let assignmentFilte of listAssignment" [value]="assignmentFilte.name">{{ assignmentFilte.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="align-label-input">
+        <label class="dash-subtitulo">Vincular fatura a qual Cartão:</label>
+        <mat-form-field class="input-field" appearance="outline">
+          <mat-select [(ngModel)]="filters.card" name="card" required>
+            <mat-option value="">Todos os cartões</mat-option>
+            <mat-option *ngFor="let cardFilter of listCards" [value]="cardFilter.bank + ' (' + cardFilter.cardDigits + ')'">
+                {{cardFilter.bank}} ({{cardFilter.cardDigits}})
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="align-label-input">
+        <label class="dash-subtitulo">Deseja importar uma fatura de que banco: </label>
+        <mat-radio-group class="example-radio-group" aria-labelledby="example-radio-group-label" [(ngModel)]="selectedBank" name="bank" required>
+            <mat-radio-button class="example-radio-button" value="inter" disabled>Inter</mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="itau" disabled>Itaú</mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="nubank">Nubank</mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="santander" disabled>Santander</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <input type="file" #fileInput (change)="onFileSelected($event)" accept="application/pdf">
+    
+    <button (click)="onSubmit()" class="btn-access" [disabled]="!filters.holder || !filters.card || !selectedBank || !selectedFile" matTooltip="Salvar categoria">
+        Enviar
+        <mat-icon class="btn-access-img">send</mat-icon>
+    </button>
+    
+</div>
+
