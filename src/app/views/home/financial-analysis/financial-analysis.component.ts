@@ -54,37 +54,41 @@ export class FinancialAnalysisComponent implements OnInit {
 
   async saveData() {
     if (this.amount && this.type) {
-      try {
-        const currentUserUID = await this.authService.getCurrentUserUID();
-
-        if (currentUserUID) {
-          this.service.saveFinanceData(currentUserUID, {
+      this.authService.getCurrentUserUID().subscribe(uid => {
+        if (uid) {
+          this.service.saveFinanceData(uid, {
             amount: this.amount,
             type: this.type,
             date: new Date()
           });
-
+  
           this.assembleGraph();
         } else {
           console.error("UID do usuário não encontrado!");
+          // Aqui você pode adicionar lógica adicional, como redirecionar para a página de login
         }
-      } catch (error) {
+      }, error => {
         console.error("Erro ao obter UID:", error);
-      }
+      });
     }
   }
 
   async assembleGraph() {
-    try {
-      const uid = await this.authService.getCurrentUserUID();
+    this.authService.getCurrentUserUID().subscribe(uid => {
       if (uid) {
-        const financeData = await this.service.getFinanceDataByUID(uid);
-        this.chartData = this.transformDataForChart(financeData);
+        this.service.getFinanceDataByUID(uid).then(financeData => {
+          this.chartData = this.transformDataForChart(financeData);
+        }).catch(error => {
+          console.error("Erro ao obter dados financeiros:", error);
+        });
+      } else {
+        console.error("UID do usuário não encontrado!");
+        // Aqui você pode adicionar lógica adicional, como redirecionar para a página de login
       }
-    } catch (error) {
-      console.error("Erro ao montar gráfico:", error);
-    }
-  }
+    }, error => {
+      console.error("Erro ao obter UID:", error);
+    });
+  } 
 
   transformDataForChart(data: any[]): any[] {
     let count = 0;

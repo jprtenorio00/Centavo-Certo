@@ -58,22 +58,36 @@ export class ManageComponent implements OnInit {
               public dialog: MatDialog) {  }
 
     ngOnInit() {
+      console.log("ngOnInit");
       this.initializeData();
     }           
-
+    
     async initializeData() {
       this.isLoading$.next(true);
       try {
-        this.currentUserID = await this.authService.getCurrentUserUID();
-        this.userId = this.currentUserID as string;
-        if (this.currentUserID) {
-          await Promise.all([
-            this.loadExpenses(this.currentUserID),
-            this.loadCategories(this.currentUserID),
-            this.loadCards(this.currentUserID),
-            this.loadHolders(this.currentUserID)
-          ]);
-        }
+        this.authService.getCurrentUserUID().subscribe(uid => {
+          this.currentUserID = uid ? uid : undefined;
+          if (this.currentUserID) {
+            Promise.all([
+              this.loadExpenses(this.currentUserID),
+              this.loadCategories(this.currentUserID),
+              this.loadCards(this.currentUserID),
+              this.loadHolders(this.currentUserID)
+            ]);
+          }
+        });
+
+        // this.currentUserID = await this.authService.getCurrentUserUID();
+        // console.log("this.currentUserID", this.currentUserID);
+        // this.userId = this.currentUserID as string;
+        // if (this.currentUserID) {
+        //   await Promise.all([
+        //     this.loadExpenses(this.currentUserID),
+        //     this.loadCategories(this.currentUserID),
+        //     this.loadCards(this.currentUserID),
+        //     this.loadHolders(this.currentUserID)
+        //   ]);
+        // }
       } catch (error) {
         console.error('Error initializing data:', error);
       } finally {
@@ -86,8 +100,6 @@ export class ManageComponent implements OnInit {
         this.listExpenses = await this.service.listExpenses(userId);
         this.extractYearsFromExpenses();
         this.processExpensesData(this.listExpenses);
-        console.log("listExpenses.length", this.listExpenses.length)
-        console.log("loading$", this.loading$)
       } catch (error) {
         console.error('Error loading expenses list:', error);
       }
@@ -125,8 +137,6 @@ export class ManageComponent implements OnInit {
 
     applyFilters() {
       this.isLoading$.next(true);
-
-      console.log("this.filters", this.filters)
 
       this.service.listFilteredExpenses({ ...this.filters, userId: this.userId })
         .then(filteredExpenses => {
@@ -220,9 +230,6 @@ export class ManageComponent implements OnInit {
         // Extrai mês e ano da data editada
         const { month, year } = this.extractMonthYear(item.editDate);
         
-        console.log("month",month)
-        console.log("year",year)
-
         // Prepara os dados para atualização
         const updatedExpenseData = {
           date: item.editDate,

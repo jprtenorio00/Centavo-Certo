@@ -69,22 +69,31 @@ export class ImportExpensesComponent {
 
   async initializeData() {
     this.isLoading$.next(true);
-    try {
-      this.currentUserID = await this.authService.getCurrentUserUID();
-      this.userId = this.currentUserID as string;
-      if (this.currentUserID) {
-        await Promise.all([
-          this.loadCards(this.currentUserID),
-          this.loadHolders(this.currentUserID)
-        ]);
+  
+    // Se inscreve no Observable para obter o UID do usuário atual
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
+      if (currentUserUID) {
+        // Como o UID é válido, pode-se prosseguir com as operações assíncronas
+        try {
+          await Promise.all([
+            this.loadCards(currentUserUID),
+            this.loadHolders(currentUserUID)
+          ]);
+        } catch (error) {
+          console.error('Error initializing data:', error);
+        } finally {
+          this.isLoading$.next(false);
+        }
+      } else {
+        console.error("UID do usuário não encontrado!");
+        this.isLoading$.next(false);
       }
-    } catch (error) {
-      console.error('Error initializing data:', error);
-    } finally {
+    }, error => {
+      console.error('Erro ao obter UID:', error);
       this.isLoading$.next(false);
-    }
+    });
   }
-
+  
   async loadCards(userId: string) {
     this.listCards = await this.serviceManage.getListCard(userId);
     this.listCards = this.listCards.filter(item => !Array.isArray(item.bank)).sort((a, b) => a.bank.localeCompare(b.bank));
@@ -123,7 +132,6 @@ export class ImportExpensesComponent {
       this.selectedFile = null;  // Limpar selectedFile se nenhum arquivo for selecionado
     }
   }
-  
   
   async readPdfText(pdfDocument: pdfjsLib.PDFDocumentProxy): Promise<string> {
     let fullText = '';
@@ -200,7 +208,9 @@ export class ImportExpensesComponent {
         this.userId = this.currentUserID as string;
         await this.serviceDashboard.addValuesCard(transaction, this.userId);
       }
-  
+      
+      
+
       // Após enviar todas as transações, você pode limpar a lista se necessário
       this.capturedTransactions = [];
 

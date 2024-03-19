@@ -68,10 +68,16 @@ export class AuthService {
       }
   }
 
-  async getCurrentUserUID(){
-    const user = await this.afAuth.currentUser;
-    const uid = user?.uid;
-    return uid;
+  // async getCurrentUserUID(){
+  //   const user = await this.afAuth.currentUser;
+  //   const uid = user?.uid;
+  //   return uid;
+  // }
+
+  getCurrentUserUID(): Observable<string | null> {
+    return this.afAuth.authState.pipe(
+      map(user => user ? user.uid : null)
+    );
   }
 
   clear(): void{

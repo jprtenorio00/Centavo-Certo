@@ -31,29 +31,40 @@ export class HoldersComponent implements OnInit {
 
   async onSubmit() {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
-      const fullName = this.formGroup.get('fullName')?.value;
-      const relation = this.formGroup.get('relation')?.value;
-      const checkInputs = this.checkInformations(fullName, relation)
   
-      if (checkInputs && currentUserUID) {
-        await this.service.addValuesHolder(fullName, relation, currentUserUID);
-        this.formGroup.get('fullName')?.setValue('');
-        this.formGroup.get('relation')?.setValue('');
-        this.getList();
+    // Se inscreve no Observable para obter o UID do usuário atual
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
+      if (currentUserUID) {
+        const fullName = this.formGroup.get('fullName')?.value;
+        const relation = this.formGroup.get('relation')?.value;
+        const checkInputs = this.checkInformations(fullName, relation);
+    
+        if (checkInputs) {
+          try {
+            // Prossiga com a lógica de adição de titular, uma vez que temos um UID válido
+            await this.service.addValuesHolder(fullName, relation, currentUserUID);
+            this.formGroup.get('fullName')?.setValue('');
+            this.formGroup.get('relation')?.setValue('');
+            this.getList();
+          } catch (error) {
+            console.error('Erro ao adicionar titular: ', error);
+          } finally {
+            this.loadingService.hide();
+          }
+        } else {
+          alert("Por favor, insira informações válidas.");
+          this.loadingService.hide();
+        }
       } else {
-        alert("Por favor, insira uma categoria válida.");
-      }
-    } catch (error) {
-      console.error('Erro ao adicionar categoria: ' + error);
-    } finally {
-      setTimeout(() => {
+        console.error("UID do usuário não encontrado!");
         this.loadingService.hide();
-      }, 500);
-    }
+      }
+    }, error => {
+      console.error('Erro ao obter UID:', error);
+      this.loadingService.hide();
+    });
   }
-
+  
   checkInformations(fullName: String, relation: String){
     if(!fullName)
     {
@@ -69,21 +80,29 @@ export class HoldersComponent implements OnInit {
     return true
   }
 
-  async getList(){
+  async getList() {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+  
+    // Se inscreve no Observable para obter o UID do usuário atual
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
       if (currentUserUID) {
-        this.listHolder = await this.service.getListHolder(currentUserUID);
-        this.listHolder = this.listHolder.filter(item => !Array.isArray(item.name)).sort((a, b) => a.name.localeCompare(b.name));
-      }
-    } catch (error) {
-      console.error('Erro ao carregar a lista de titulares:', error);
-    } finally {
-      setTimeout(() => {
+        try {
+          // Prossiga com a lógica de obtenção da lista, uma vez que temos um UID válido
+          this.listHolder = await this.service.getListHolder(currentUserUID);
+          this.listHolder = this.listHolder.filter(item => !Array.isArray(item.name)).sort((a, b) => a.name.localeCompare(b.name));
+        } catch (error) {
+          console.error('Erro ao carregar a lista de titulares:', error);
+        } finally {
+          this.loadingService.hide();
+        }
+      } else {
+        console.error("UID do usuário não encontrado!");
         this.loadingService.hide();
-      }, 500);
-    }
+      }
+    }, error => {
+      console.error('Erro ao obter UID:', error);
+      this.loadingService.hide();
+    });
   }
 
   openConfirmDialog(holderId: string): void {
@@ -100,19 +119,25 @@ export class HoldersComponent implements OnInit {
   
   async deleteHolder(holderId: string) {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+  
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
       if (currentUserUID) {
-        await this.service.deleteHolder(currentUserUID, holderId);
-      }
-      this.getList();
-    } catch (error) {
-      console.error('Erro ao excluir o  titular:', error);
-    } finally {
-      setTimeout(() => {
+        try {
+          await this.service.deleteHolder(currentUserUID, holderId);
+          this.getList();
+        } catch (error) {
+          console.error('Erro ao excluir o titular:', error);
+        } finally {
+          this.loadingService.hide();
+        }
+      } else {
+        console.error("UID do usuário não encontrado!");
         this.loadingService.hide();
-      }, 500);
-    }
+      }
+    }, error => {
+      console.error('Erro ao obter UID:', error);
+      this.loadingService.hide();
+    });
   }
 
 }

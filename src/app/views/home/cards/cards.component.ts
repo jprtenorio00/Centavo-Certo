@@ -50,30 +50,40 @@ export class CardsComponent implements OnInit {
     this.formGroup.get('natureCard')?.setValue('');
   }
 
-  async onSubmit() {
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
-      const bankIssuer = this.formGroup.get('bankIssuer')?.value;
-      const typeCard = this.formGroup.get('typeCard')?.value;
-      const cardDigits = this.formGroup.get('cardDigits')?.value;
-      const natureCard = this.formGroup.get('natureCard')?.value;
-      const checkInputs = this.checkInformations(bankIssuer, typeCard, cardDigits, natureCard)
-
-      if (checkInputs && currentUserUID) {
-        this.loadingService.show();
-        await this.service.addValuesCard(bankIssuer, typeCard, cardDigits, natureCard, currentUserUID);
-        this.clearAllValues();
-        this.getList();
+  onSubmit() {
+    // Primeiro, inscreve-se no Observable para obter o UID do usuário
+    this.authService.getCurrentUserUID().subscribe(currentUserUID => {
+      // Certifique-se de que o currentUserUID não é nulo antes de prosseguir
+      if (currentUserUID) {
+        // Agora você tem um UID válido do usuário, pode prosseguir com o restante da lógica
+        try {
+          const bankIssuer = this.formGroup.get('bankIssuer')?.value;
+          const typeCard = this.formGroup.get('typeCard')?.value;
+          const cardDigits = this.formGroup.get('cardDigits')?.value;
+          const natureCard = this.formGroup.get('natureCard')?.value;
+          const checkInputs = this.checkInformations(bankIssuer, typeCard, cardDigits, natureCard);
+    
+          if (checkInputs) {
+            this.loadingService.show();
+            this.service.addValuesCard(bankIssuer, typeCard, cardDigits, natureCard, currentUserUID).then(() => {
+              this.clearAllValues();
+              this.getList();
+            }).catch(error => {
+              console.error('Erro ao adicionar categoria:', error);
+            }).finally(() => {
+              this.loadingService.hide();
+            });
+          }
+        } catch (error) {
+          console.error('Erro ao adicionar categoria:', error);
+          this.loadingService.hide();
+        }
+      } else {
+        console.error('UID do usuário não disponível.');
       }
-    } catch (error) {
-      console.error('Erro ao adicionar categoria: ' + error);
-    } finally {
-      setTimeout(() => {
-        this.loadingService.hide();
-      }, 500);
-    }
+    });
   }
-
+  
   checkInformations(bankIssuer: String, typeCard: String, cardDigits: String, natureCard: String){
     if(!bankIssuer)
     {
@@ -100,19 +110,24 @@ export class CardsComponent implements OnInit {
 
   async getList(){
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+
+    // Inscreve-se no Observable para obter o UID do usuário atual
+    this.authService.getCurrentUserUID().subscribe(currentUserUID => {
       if (currentUserUID) {
-        this.listCards = await this.service.getListCard(currentUserUID);
-        this.listCards = this.listCards.filter(item => !Array.isArray(item.bank)).sort((a, b) => a.bank.localeCompare(b.bank));
+        // UID do usuário está disponível, prossegue com a obtenção da lista
+        this.service.getListCard(currentUserUID).then(listCards => {
+          this.listCards = listCards.filter(item => !Array.isArray(item.bank)).sort((a, b) => a.bank.localeCompare(b.bank));
+          this.loadingService.hide(); // Esconde o loading quando a operação for concluída
+        }).catch(error => {
+          console.error('Erro ao carregar os cartões:', error);
+          this.loadingService.hide(); // Esconde o loading mesmo em caso de erro
+        });
+      } else {
+        // Nenhum usuário autenticado, talvez redirecionar para a tela de login ou mostrar uma mensagem
+        console.error('Usuário não está autenticado.');
+        this.loadingService.hide(); // Esconde o loading já que não pode prosseguir
       }
-    } catch (error) {
-      console.error('Erro ao carregar os cartões:', error);
-    } finally {
-      setTimeout(() => {
-        this.loadingService.hide();
-      }, 500);
-    }
+    });    
   }
 
   openConfirmDialog(categoryId: string): void {
@@ -129,19 +144,24 @@ export class CardsComponent implements OnInit {
   
   async deleteCategory(cardId: string) {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+
+    // Inscreve-se no Observable para obter o UID do usuário atual
+    this.authService.getCurrentUserUID().subscribe(currentUserUID => {
       if (currentUserUID) {
-        await this.service.deleteCard(currentUserUID, cardId);
+        // UID do usuário está disponível, prossegue com a exclusão
+        this.service.deleteCard(currentUserUID, cardId).then(() => {
+          this.getList();
+          this.loadingService.hide(); // Esconde o loading quando a operação for concluída
+        }).catch(error => {
+          console.error('Erro ao excluir o cartão:', error);
+          this.loadingService.hide(); // Esconde o loading mesmo em caso de erro
+        });
+      } else {
+        // Nenhum usuário autenticado, talvez redirecionar para a tela de login ou mostrar uma mensagem
+        console.error('Usuário não está autenticado.');
+        this.loadingService.hide(); // Esconde o loading já que não pode prosseguir
       }
-      this.getList();
-    } catch (error) {
-      console.error('Erro ao excluir o cartão:', error);
-    } finally {
-      setTimeout(() => {
-        this.loadingService.hide();
-      }, 500);
-    }
+    });
   }
 
 }

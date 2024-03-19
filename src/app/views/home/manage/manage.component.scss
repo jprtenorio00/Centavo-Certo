@@ -5,9 +5,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    // min-height: 100vh;
     padding: 20px;
-    margin: 0 auto;
+    margin: 0px 25px;
 
     .expense-card {
         background-color: #f8f8f8;
@@ -174,5 +174,63 @@ app-loading-spinner{
     text-decoration: none;
     color: $secondary-color-font;
     font-weight: 600;
-    font-size: min(1.25vw, 24px); 
+    font-size: min(1.042vw, 20px); 
+    height: 100%;
 }
+
+
+.content-expense h1 {
+    color: $primary-color-font;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.align-dashboard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.align-label-input{
+    display: flex;
+    flex-direction: column;
+    width: 13%;
+}
+
+.dash-subtitulo{
+    font-size: min(0.938vw, 18px);
+    color: $primary-color-font;
+    font-weight: 500;
+    margin-bottom: 0.5vh;
+}
+
+.input-field {
+    width: 23vh; /* Ajustado para ocupar o espaço disponível */
+    margin-bottom: 10px; /* Espaço abaixo de cada campo */
+}
+
+.dash-inputs{
+    display: flex;
+    // flex-wrap: wrap; /* Adicionado para responsividade */
+    // gap: 5px; /* Espaço entre os campos */
+    // justify-content: space-between; /* Espaçamento igual entre os itens */
+    align-items: center;
+    gap: 10px;
+}  
+
+.align-import{
+    display: flex;
+    align-self: end;
+}
+ 
+
+.section-manage{
+    width: 100%;
+}
+  
+ 
+
+.teste{
+    margin-left: 9%;
+}
+  

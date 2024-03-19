@@ -54,23 +54,35 @@ export class DashboardComponent implements OnInit {
   ngOnDestroy() {
     this.renderer.removeClass(document.body, 'app-dashboard');
   }
+
   getAllLists(){
     setTimeout(() => {
       this.getListCards();
+      this.formGroup.get('card')?.setValue("");
       this.getListCategory();
+      this.formGroup.get('category')?.setValue("");
       this.getListHolders();
+      this.formGroup.get('assignment')?.setValue("");
       this.getListDates();
       this.formGroup.get('date')?.setValue(new Date);
     }, 800);
   }
 
-  async getUserId(){
-    try {
-      this.currentUserID = await this.authService.getCurrentUserUID();
-      this.getAllLists();
-    } catch (error) {
-      console.error("Erro ao recuperar o usuário " + error);
-    }
+  async getUserId() {
+    this.authService.getCurrentUserUID().subscribe({
+      next: (uid) => {
+        if (uid) {
+          this.currentUserID = uid;
+          this.getAllLists();
+        } else {
+          console.error("UID do usuário não está disponível.");
+          // Trate o caso em que o UID do usuário não está disponível
+        }
+      },
+      error: (error) => {
+        console.error("Erro ao recuperar o usuário: ", error);
+      }
+    });
   }
 
   async onSubmit() {
@@ -114,7 +126,6 @@ export class DashboardComponent implements OnInit {
     }
   }
  
-
   checkInformations(date: String, assignment: String, value: String, installment: String,
                     card: String, description: String, category: String){
     if(!date)
@@ -173,6 +184,7 @@ export class DashboardComponent implements OnInit {
       if (currentUserUID) {
         this.listCards = await this.service.getListCard(currentUserUID);
         this.listCards = this.listCards.filter(item => !Array.isArray(item.bank)).sort((a, b) => a.bank.localeCompare(b.bank));
+        console.log("this.listCards", this.listCards)
       }
     } catch (error) {
       console.error('Erro ao carregar os cartões:', error);
@@ -191,6 +203,22 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  // Função para converter os valores de 'value' de string para número
+  convertValuesToFloat(data: any[]): any[] {
+    return data.map(item => {
+      if (item.value && typeof item.value === 'string') {
+        return {
+          ...item,
+          value: parseFloat(item.value)
+        };
+      }
+      return item;
+    });
+  }
+
+  // Exemplo de uso
+  
+  
   async getListDates(){
     this.loadingService.show();
     try
@@ -199,6 +227,9 @@ export class DashboardComponent implements OnInit {
       if(currentUserUID)
       {
         this.listDate = await this.service.getListDates(currentUserUID);
+        console.log("this.listDate", this.listDate)
+        let testelistDate = this.convertValuesToFloat(this.listDate);
+        console.log("Dados convertidos:", testelistDate);
         this.setInitialListChartCategory(this.listDate)
         this.setInitialListChartCategoryPercentage(this.listDate)
         this.setInitialListCharCard(this.listDate)
@@ -221,12 +252,32 @@ export class DashboardComponent implements OnInit {
       }, 500);
     }
   }
+  
+  // setInitialListChartCategory(data: Array<any>) {
+  //   const transformedData = ChartsUtil.getSimpleGraphicObject(data, 'category', 'value', 'description');
+  //   console.log("transformedData", transformedData)
+  //   transformedData.sort((a,b) => b.value - a.value)
+  //   this.chartDataCategory = transformedData;
+  // }
 
   setInitialListChartCategory(data: Array<any>) {
-    const transformedData = ChartsUtil.getSimpleGraphicObject(data, 'category', 'value', 'description');
-    transformedData.sort((a,b) => b.value - a.value)
+    let transformedData = ChartsUtil.getSimpleGraphicObject(data, 'category', 'value', 'description');
+    
+    // Converte cada 'value' de string para número
+    transformedData = transformedData.map(item => ({
+      ...item,
+      value: item.value // Converte o 'value' para número
+    }));
+  
+    console.log("transformedData", transformedData);
+    
+    // Ordena os dados transformados com base no valor numérico de 'value'
+    transformedData.sort((a, b) => b.value - a.value);
+    
     this.chartDataCategory = transformedData;
   }
+  
+  
 
   setInitialListChartCategoryPercentage(data: Array<any>) {
     const sumByCard: Record<string, number> = data.reduce((acc, item) => {
@@ -337,19 +388,22 @@ export class DashboardComponent implements OnInit {
 
   setValueAverageSpending(data: Array<any>) {
     let total: number = 0;
-    const currentMonth = new Date().getMonth() + 1; // Mês atual
-    const currentYear = new Date().getFullYear(); // Ano atual
+    // const currentMonth = (new Date().getMonth() + 1).toString().padStart(2, '0'); // Garante que o mês tenha 2 dígitos
+    const currentMonth = (new Date().getMonth()).toString().padStart(2, '0'); // Garante que o mês tenha 2 dígitos
+    const currentYear = (new Date().getFullYear()).toString(); // Ano atual
   
     data.forEach(element => {
       if (element.category && element.month && element.year) {
         // Utilize os campos 'month' e 'year' diretamente para a comparação
         if (element.month === currentMonth && element.year === currentYear) {
-          total += element.value;
+          total += parseFloat(element.value);
         }
       }
     });
-  
+    console.log("total", total)
+    
     this.averageSpendingMonth = total > 0 ? total : 0;
+    console.log("this.averageSpendingMonth", this.averageSpendingMonth)
   }
 
   setValueAverageSpendingInMainCategory(data: Array<any>) {
@@ -361,10 +415,10 @@ export class DashboardComponent implements OnInit {
     data.forEach(element => {
       if (element.category) {
         if (categoryTotals[element.category]) {
-          categoryTotals[element.category].total += element.value;
+          categoryTotals[element.category].total += parseFloat(element.value);
           categoryTotals[element.category].count += 1;
         } else {
-          categoryTotals[element.category] = { total: element.value, count: 1 };
+          categoryTotals[element.category] = { total: parseFloat(element.value), count: 1 };
         }
       }
     });
@@ -392,7 +446,7 @@ export class DashboardComponent implements OnInit {
     // Acumular o total e a contagem por titular.
     data.forEach(element => {
       if (element.assignment) {
-        totalsByHolder[element.assignment] = (totalsByHolder[element.assignment] || 0) + element.value;
+        totalsByHolder[element.assignment] = (totalsByHolder[element.assignment] || 0) + parseFloat(element.value);
         countsByHolder[element.assignment] = (countsByHolder[element.assignment] || 0) + 1;
       }
     });
@@ -409,8 +463,9 @@ export class DashboardComponent implements OnInit {
   }
 
   setValueExpensesCountInMonth(data: Array<any>) {
-    const currentMonth = new Date().getMonth() + 1; // Mês atual
-    const currentYear = new Date().getFullYear(); // Ano atual
+    // const currentMonth = new Date().getMonth() + 1; // Mês atual
+    const currentMonth = (new Date().getMonth()).toString().padStart(2, '0'); // Garante que o mês tenha 2 dígitos
+    const currentYear = (new Date().getFullYear()).toString(); // Ano atual
     let count = 0;
   
     data.forEach(element => {

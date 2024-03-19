@@ -90,15 +90,15 @@ async listFilteredExpenses(filters: { userId: string, month?: string, year?: str
     let q = query(expensesCollectionRef);
 
     // Aplica filtro por mês, se fornecido
-    if (filters.month && filters.month !== '0') {
+    if (filters.month && filters.month !== '') {
       // Como 'month' agora é um campo separado, você pode filtrar diretamente por ele
-      q = query(q, where('month', '==', Number(filters.month)));
+      q = query(q, where('month', '==', filters.month));
     }
     
     // Aplica filtro por ano, se fornecido
     if (filters.year && filters.year !== '0') {
       // Similarmente, 'year' é um campo separado e pode ser usado diretamente no filtro
-      q = query(q, where('year', '==', Number(filters.year)));
+      q = query(q, where('year', '==', String(filters.year)));
     }
 
     // Aplica filtro por categoria, se fornecido
@@ -112,6 +112,7 @@ async listFilteredExpenses(filters: { userId: string, month?: string, year?: str
     }
 
     const querySnapshot = await getDocs(q);
+
     return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     throw error;

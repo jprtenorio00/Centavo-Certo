@@ -32,55 +32,82 @@ export class CategoriesComponent implements OnInit {
 
   async onSubmit() {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
-      const categoryName = this.formGroup.get('category')?.value;
-  
-      if (categoryName && currentUserUID) {
-        await this.service.addCategory(categoryName, currentUserUID);
-        this.formGroup.get('category')?.setValue('');
-        this.getList();
+    // Inscreva-se no Observable para obter o currentUserUID
+    this.authService.getCurrentUserUID().subscribe(currentUserUID => {
+      // Verifique se o currentUserUID não é nulo antes de prosseguir
+      if (currentUserUID) {
+        const categoryName = this.formGroup.get('category')?.value;
+        if (categoryName) {
+          // Agora que você tem um currentUserUID válido, pode prosseguir com a lógica de adição de categoria
+          this.service.addCategory(categoryName, currentUserUID).then(() => {
+            this.formGroup.get('category')?.setValue('');
+            this.getList();
+          }).catch(error => {
+            console.error('Erro ao adicionar categoria:', error);
+          }).finally(() => {
+            this.loadingService.hide();
+          });
+        } else {
+          alert("Por favor, insira uma categoria válida.");
+          this.loadingService.hide();
+        }
       } else {
-        alert("Por favor, insira uma categoria válida.");
-      }
-    } catch (error) {
-      console.error('Erro ao adicionar categoria: ' + error);
-    } finally {
-      setTimeout(() => {
+        console.error('UID do usuário não está disponível.');
         this.loadingService.hide();
-      }, 500);
-    }
+        // Trate o caso em que o UID do usuário não está disponível, talvez redirecionando para o login
+      }
+    }, error => {
+      console.error('Erro ao obter o UID do usuário:', error);
+      this.loadingService.hide();
+    });
   }
 
-  async getList(){
+  async getList() {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+  
+    // Inscreva-se no Observable para obter o currentUserUID
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
+      // Verifique se o currentUserUID não é nulo antes de prosseguir
       if (currentUserUID) {
-        this.listCategories = await this.service.getListCategories(currentUserUID);
-        this.listCategories = this.listCategories.filter(item => !Array.isArray(item.category)).sort((a, b) => a.category.localeCompare(b.category));
-      }
-    } catch (error) {
-      console.error('Erro ao carregar categorias:', error);
-    } finally {
-      setTimeout(() => {
+        try {
+          this.listCategories = await this.service.getListCategories(currentUserUID);
+          this.listCategories = this.listCategories.filter(item => !Array.isArray(item.category)).sort((a, b) => a.category.localeCompare(b.category));
+        } catch (error) {
+          console.error('Erro ao carregar categorias:', error);
+        } finally {
+          this.loadingService.hide();
+        }
+      } else {
+        console.error('UID do usuário não está disponível.');
         this.loadingService.hide();
-      }, 500);
-    }
+        // Trate o caso em que o UID do usuário não está disponível
+      }
+    }, error => {
+      console.error('Erro ao obter o UID do usuário:', error);
+      this.loadingService.hide();
+    });
   }
 
   async updateCategory(categoryId: string, newCategoryName: string) {
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+    // Inscreva-se no Observable para obter o currentUserUID
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
+      // Verifique se o currentUserUID não é nulo antes de prosseguir
       if (currentUserUID) {
-        await this.service.updateCategory(currentUserUID, categoryId, newCategoryName);
+        try {
+          await this.service.updateCategory(currentUserUID, categoryId, newCategoryName);
+          this.getList();
+        } catch (error) {
+          console.error('Erro ao atualizar categoria:', error);
+        }
+      } else {
+        console.error('UID do usuário não está disponível.');
+        // Trate o caso em que o UID do usuário não está disponível
       }
-      this.getList();
-    } catch (error) {
-      console.error('Erro ao atualizar categoria:', error);
-    }
+    }, error => {
+      console.error('Erro ao obter o UID do usuário:', error);
+    });
   }
-
+  
   openConfirmDialog(categoryId: string): void {
     document.body.classList.add('no-visibility');
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
@@ -95,19 +122,26 @@ export class CategoriesComponent implements OnInit {
   
   async deleteCategory(categoryId: string) {
     this.loadingService.show();
-    try {
-      const currentUserUID = await this.authService.getCurrentUserUID();
+    // Inscreva-se no Observable para obter o currentUserUID
+    this.authService.getCurrentUserUID().subscribe(async currentUserUID => {
+      // Verifique se o currentUserUID não é nulo antes de prosseguir
       if (currentUserUID) {
-        await this.service.deleteCategory(currentUserUID, categoryId);
-      }
-      this.getList();
-    } catch (error) {
-      console.error('Erro ao excluir categoria:', error);
-    } finally {
-      setTimeout(() => {
+        try {
+          await this.service.deleteCategory(currentUserUID, categoryId);
+          this.getList();
+        } catch (error) {
+          console.error('Erro ao excluir categoria:', error);
+        } finally {
+          this.loadingService.hide();
+        }
+      } else {
+        console.error('UID do usuário não está disponível.');
         this.loadingService.hide();
-      }, 500);
-    }
+        // Trate o caso em que o UID do usuário não está disponível
+      }
+    }, error => {
+      console.error('Erro ao obter o UID do usuário:', error);
+      this.loadingService.hide();
+    });
   }
-
 }

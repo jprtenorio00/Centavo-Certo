@@ -22,6 +22,7 @@
           </label>
           <mat-form-field appearance="outline" class="input-field">
             <mat-select formControlName="assignment">
+              <mat-option value="">Selecione</mat-option>
               <mat-option *ngIf="listAssignment.length == 0" [value]="null" (click)="redirectToHolderPage()" >Cadastrar um titular <mat-icon>add</mat-icon> </mat-option>
               <mat-option *ngFor="let item of listAssignment" [value]="item.name">
                 {{item.name}}
@@ -56,6 +57,7 @@
           </label>
           <mat-form-field appearance="outline" class="input-field">
             <mat-select formControlName="card">
+              <mat-option value="">Selecione</mat-option>
               <mat-option *ngIf="listCards.length == 0" [value]="null" (click)="redirectToCardPage()" >Cadastrar um cartão <mat-icon>add</mat-icon></mat-option>
               <mat-option *ngFor="let item of listCards" [value]="item.bank + ' (' + item.cardDigits + ')'">
                 {{item.bank}} ({{item.cardDigits}})
@@ -80,6 +82,7 @@
           </label>
           <mat-form-field appearance="outline" class="input-field">
             <mat-select formControlName="category">
+              <mat-option value="">Selecione</mat-option>
               <mat-option *ngIf="listCategory.length == 0" [value]="null" (click)="redirectToCategoryPage()" >Cadastrar uma categoria <mat-icon>add</mat-icon> </mat-option>
               <mat-option *ngFor="let item of listCategory" [value]="item.category">
                 {{item.category}}

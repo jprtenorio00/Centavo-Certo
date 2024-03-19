@@ -54,14 +54,14 @@ export class DashboardService {
         }
     }
 
-    async getListDates(userId: string): Promise<any[]> {
-      try {
-        const q = query(collection(db, 'users', userId, 'dashboard'));
-        const querySnapshot = await getDocs(q);
-        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      } catch (error) {
-        throw error;
-      }
+  async getListDates(userId: string): Promise<any[]> {
+    try {
+      const q = query(collection(db, 'users', userId, 'dashboard'));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      throw error;
+    }
   }
 
     async addValuesCard(data: any, userId: string): Promise<void> {
